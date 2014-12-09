@@ -5,14 +5,15 @@ import importlib
 
 class xcparse(object):
     projects = [];
+    name = '';
     
     def __init__(self, path):
         if os.path.exists(path) == True:
-            extension = os.path.basename(path);
-            if extension.endswith('.xcodeproj') or extension.endswith('.pbproj'):
+            self.name = os.path.basename(path);
+            if self.name.endswith('.xcodeproj') or self.name.endswith('.pbproj'):
                 project_file = xcprojparse.xcprojparse(path);
                 self.projects.append(project_file);
-            elif extension.endswith('.xcworkspace'):
+            elif self.name.endswith('.xcworkspace'):
                 workspace_file = xcwsparse.xcwsparse(path);
                 for project_file in workspace_file.projects():
                     self.projects.append(project_file);

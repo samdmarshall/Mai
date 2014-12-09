@@ -3,6 +3,9 @@ import sys
 import xml.etree.ElementTree as xml
 import BSPathObject
 
+def SchemeName(x):
+    return x.name;
+
 class xcschemeparse(object):
     path = {};
     contents = {};
