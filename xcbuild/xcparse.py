@@ -4,6 +4,7 @@ import os
 import importlib
 
 class xcparse(object):
+    root = {};
     projects = [];
     name = '';
     
@@ -13,8 +14,10 @@ class xcparse(object):
             if self.name.endswith('.xcodeproj') or self.name.endswith('.pbproj'):
                 project_file = xcprojparse.xcprojparse(path);
                 self.projects.append(project_file);
+                self.root = project_file;
             elif self.name.endswith('.xcworkspace'):
                 workspace_file = xcwsparse.xcwsparse(path);
+                self.root = workspace_file;
                 for project_file in workspace_file.projects():
                     self.projects.append(project_file);
             else:
@@ -31,7 +34,11 @@ class xcparse(object):
         return items;
         
     def schemes(self):
-        return self.iterateProjectsForCall('schemes');
+        project_schemes = self.iterateProjectsForCall('schemes');
+        root_schemes = self.root.schemes();
+        return project_schemes + root_schemes;
         
     def targets(self):
-        return self.iterateProjectsForCall('targets');
+        project_targets = self.iterateProjectsForCall('targets');
+        root_targets = [];
+        return project_targets + root_targets;

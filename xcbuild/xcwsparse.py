@@ -4,6 +4,7 @@ import xml.etree.ElementTree as xml
 import os
 import sys
 import developer_tools
+import xcschemeparse
 
 class xcwsparse(object):
     path = {};
@@ -64,3 +65,16 @@ class xcwsparse(object):
                 for item in results:
                     indexed_projs.append(item);
         return indexed_projs;
+    
+    def schemes(self):
+        schemes = [];
+        # shared schemes
+        shared_path = xcschemeparse.GetSharedPath(self.path.obj_path);
+        shared_schemes = xcschemeparse.ParseDirectoryForXCSchemes(shared_path);
+        # user schemes
+        user_path = xcschemeparse.GetUserPath(self.path.obj_path);
+        user_schemes = xcschemeparse.ParseDirectoryForXCSchemes(user_path);
+        # merge schemes
+        for scheme in shared_schemes + user_schemes:
+            schemes.append(scheme);
+        return schemes;
