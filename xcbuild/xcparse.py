@@ -7,9 +7,11 @@ class xcparse(object):
     root = {};
     projects = [];
     name = '';
+    root_path = '';
     
     def __init__(self, path):
         if os.path.exists(path) == True:
+            self.root_path = path;
             self.name = os.path.basename(path);
             if self.name.endswith('.xcodeproj') or self.name.endswith('.pbproj'):
                 project_file = xcprojparse.xcprojparse(path);
