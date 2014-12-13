@@ -36,9 +36,9 @@ class xcparse(object):
     def schemes(self):
         project_schemes = self.iterateProjectsForCall('schemes');
         root_schemes = self.root.schemes();
-        return project_schemes + root_schemes;
+        return root_schemes + project_schemes;
         
     def targets(self):
         project_targets = self.iterateProjectsForCall('targets');
         root_targets = [];
-        return project_targets + root_targets;
+        return root_targets + project_targets;

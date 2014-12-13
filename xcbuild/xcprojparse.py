@@ -33,7 +33,7 @@ class xcprojparse(object):
     
     def objects(self):
         return self.contents['objects'];
-        
+    
     def rootObject(self):
         return self.objects()[self.contents['rootObject']];
     
