@@ -2,11 +2,11 @@ import os
 import sys
 import subprocess
 
-def make_subprocess_call(call_args):
+def make_subprocess_call(call_args, shell_state=False):
     error = 0;
     output = '';
     try:
-        output = subprocess.check_output(call_args);
+        output = subprocess.check_output(call_args, shell=shell_state);
         error = 0;
     except CalledProcessError as e:
         output = e.output;

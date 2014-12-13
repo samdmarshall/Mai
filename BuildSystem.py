@@ -4,18 +4,7 @@ import xcschemeparse
 import sys
 import os
 import BSConfigParser
-import subprocess
-from subprocess import CalledProcessError
-def call_process(call_args):
-    error = 0;
-    output = '';
-    try:
-        output = subprocess.check_output(call_args, shell=True);
-        error = 0;
-    except CalledProcessError as e:
-        output = e.output;
-        error = e.returncode;
-    return output;
+import developer_tools
 # Main
 def main(argv):
     parser = argparse.ArgumentParser(description='Resolve target dependencies');
@@ -51,8 +40,8 @@ def main(argv):
                     build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme+'" ';
                     for item in validate_config_scheme_settings:
                         build_command+=str(item)+' ';
-                    result = call_process(build_command);
-                    print result;
+                    result = developer_tools.make_subprocess_call(build_command, True);
+                    print result[0];
 
 if __name__ == "__main__":
     main(sys.argv[1:]);
