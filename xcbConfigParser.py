@@ -5,7 +5,7 @@ import collections
 import xcschemeparse
 import re
 
-class BSConfigParser():
+class xcbConfigParser():
     path = '';
     contents = {};
     

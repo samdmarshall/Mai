@@ -1,4 +1,4 @@
-import BSPathObject
+import xcbPathObject
 import xcprojparse
 import xml.etree.ElementTree as xml
 import os
@@ -11,7 +11,7 @@ class xcwsparse(object):
     data = {};
     
     def __init__(self, xcworkspace_path):
-        self.path = BSPathObject.BSPathObject(xcworkspace_path, 'contents.xcworkspacedata');
+        self.path = xcbPathObject.xcbPathObject(xcworkspace_path, 'contents.xcworkspacedata');
         
         if os.path.exists(self.path.root_path) == True:
             try:

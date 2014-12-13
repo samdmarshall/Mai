@@ -3,7 +3,7 @@ import argparse
 import xcschemeparse
 import sys
 import os
-import BSConfigParser
+import xcbConfigParser
 import developer_tools
 # Main
 def main(argv):
@@ -23,7 +23,7 @@ def main(argv):
         sys.exit();
     
     if args.config != None and os.path.exists(args.config) == True:
-        config_file = BSConfigParser.BSConfigParser(args.config);
+        config_file = xcbConfigParser.xcbConfigParser(args.config);
         
         validate_config_schemes = config_file.ValidateSections(xcparser.schemes());
         if validate_config_schemes[0] == False:
