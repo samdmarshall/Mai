@@ -1,10 +1,8 @@
-import xcparse
-import argparse
-import xcschemeparse
-import sys
 import os
-import xcbConfigParser
-import developer_tools
+import sys
+import argparse
+from .developer_tools import *
+from .xcparse import *
 # Main
 def main(argv):
     parser = argparse.ArgumentParser(description='Resolve target dependencies');
@@ -14,27 +12,27 @@ def main(argv):
     args = parser.parse_args();
     
     xcparser = xcparse.xcparse(args.filename);
-    
+
     if args.list == True:
         print 'Schemes';
         print '========================';
         for scheme in xcparser.schemes():
             print scheme.name;
         sys.exit();
-    
+
     if args.config != None and os.path.exists(args.config) == True:
         config_file = xcbConfigParser.xcbConfigParser(args.config);
-        
+
         validate_config_schemes = config_file.ValidateSections(xcparser.schemes());
         if validate_config_schemes[0] == False:
             print 'Could not find Schemes with names: '+str(list(validate_config_schemes[1]));
             sys.exit();
-        
+
         for scheme in config_file.sections():
             config_scheme_settings = config_file.options(scheme);
-            
+
             validate_config_scheme_settings = config_file.ValidateSetting(scheme, config_scheme_settings);
-            
+
             for project in xcparser.projects:
                 if scheme in list(map(xcschemeparse.SchemeName, project.schemes())):
                     build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme+'" ';

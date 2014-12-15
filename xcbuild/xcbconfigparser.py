@@ -2,10 +2,10 @@ import os
 import sys
 import ConfigParser
 import collections
-import xcschemeparse
+from .xcschemeparse import *
 import re
 
-class xcbConfigParser():
+class xcbconfigparser(object):
     path = '';
     contents = {};
     
@@ -21,7 +21,7 @@ class xcbConfigParser():
     def options(self, section):
         return self.contents.options(section);
     
-    def ParseSetting(self, scheme, option):
+    def parseSetting(self, scheme, option):
         value = self.contents.get(scheme, option);
         def interpolate_func(match):
             d = match.groupdict();
@@ -34,12 +34,12 @@ class xcbConfigParser():
         else:
             return subvalue;
     
-    def ValidateSections(self, scheme_list):
+    def validateSections(self, scheme_list):
         scheme_set = set(list(map(xcschemeparse.SchemeName, scheme_list)));
         section_set = set(self.sections());
         return (section_set.issubset(scheme_set), section_set.difference(scheme_set));
     
-    def ValidateSetting(self, scheme, settings_list):
+    def validateSetting(self, scheme, settings_list):
         config_args = [];
         for setting in settings_list:
             config_args.append(str(setting.upper()+'="'+self.ParseSetting(scheme, setting)+'"'));

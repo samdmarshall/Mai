@@ -1,9 +1,9 @@
-import xcprojparse
-import xcwsparse
+from .xcprojparse import *
+from .xcwsparse import *
 import os
 import importlib
 
-class xcparse(object):
+class xcparse():
     root = {};
     projects = [];
     name = '';

@@ -1,7 +1,7 @@
 import os
 import sys
 import xml.etree.ElementTree as xml
-import xcbPathObject
+from .xcbpathobject import *
 
 def GetSharedPath(path):
     return os.path.join(path, 'xcshareddata/xcschemes');
@@ -29,7 +29,7 @@ class xcschemeparse(object):
     name = '';
     
     def __init__(self, path):
-        self.path = xcbPathObject.xcbPathObject(path, '');
+        self.path = xcbpathobject.xcbpathobject(path, '');
         self.name = os.path.basename(path).split('.xcscheme')[0];
         try:
             self.contents = xml.parse(self.path.obj_path);

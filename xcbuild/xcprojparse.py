@@ -1,7 +1,7 @@
 import Cocoa
 import Foundation
-import xcbPathObject
-import xcschemeparse
+from .xcbpathobject import *
+from .xcschemeparse import *
 import os
 import sys
 
@@ -9,10 +9,9 @@ class xcprojparse(object):
     path = {};
     contents = {};
     
-    
     def __init__(self, xcproj_path):
         if xcproj_path.endswith('.xcodeproj') or xcproj_path.endswith('.pbproj'):
-            self.path = xcbPathObject.xcbPathObject(xcproj_path, 'project.pbxproj');
+            self.path = xcbpathobject.xcbpathobject(xcproj_path, 'project.pbxproj');
         
             if os.path.exists(self.path.root_path) == True:
                 # loading project file

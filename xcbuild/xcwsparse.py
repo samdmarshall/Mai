@@ -1,17 +1,17 @@
-import xcbPathObject
-import xcprojparse
+from .xcbpathobject import *
+from .xcprojparse import *
 import xml.etree.ElementTree as xml
 import os
 import sys
-import developer_tools
-import xcschemeparse
+from .developer_tools import *
+from .xcschemeparse import *
 
 class xcwsparse(object):
     path = {};
     data = {};
     
     def __init__(self, xcworkspace_path):
-        self.path = xcbPathObject.xcbPathObject(xcworkspace_path, 'contents.xcworkspacedata');
+        self.path = xcbpathobject.xcbpathobject(xcworkspace_path, 'contents.xcworkspacedata');
         
         if os.path.exists(self.path.root_path) == True:
             try:
@@ -24,7 +24,7 @@ class xcwsparse(object):
     def isValid(self):
         return self.data != {};
     
-    def ResolvePathFromXMLItem(self, node, path):
+    def resolvePathFromXMLItem(self, node, path):
         file_relative_path = node.attrib['location'];
         path_type, item_path = file_relative_path.split(':');
         if path_type == 'group':
@@ -39,7 +39,7 @@ class xcwsparse(object):
             print 'Invalid item path name!';
             return item_path;
     
-    def ParsePathsFromXMLItem(self, node, path):
+    def parsePathsFromXMLItem(self, node, path):
         results = [];
         item_path = self.ResolvePathFromXMLItem(node, path);
         if node.tag == 'FileRef':
@@ -50,7 +50,7 @@ class xcwsparse(object):
         if node.tag == 'Group':
             path = os.path.join(path, item_path);
             for child in node:
-                group_results = self.ParsePathsFromXMLItem(child, path);
+                group_results = self.parsePathsFromXMLItem(child, path);
                 for item in group_results:
                     results.append(item);
         return results;
@@ -61,7 +61,7 @@ class xcwsparse(object):
             workspace_base_path = self.path.base_path;
             workspace_root = self.data.getroot();
             for child in workspace_root:
-                results = self.ParsePathsFromXMLItem(child, workspace_base_path);
+                results = self.parsePathsFromXMLItem(child, workspace_base_path);
                 for item in results:
                     indexed_projs.append(item);
         return indexed_projs;
