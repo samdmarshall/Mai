@@ -35,7 +35,7 @@ class xcbconfigparser(object):
             return subvalue;
     
     def validateSections(self, scheme_list):
-        scheme_set = set(list(map(xcschemeparse.SchemeName, scheme_list)));
+        scheme_set = set(list(map(xcschemeparseSchemeName, scheme_list)));
         section_set = set(self.sections());
         return (section_set.issubset(scheme_set), section_set.difference(scheme_set));
     

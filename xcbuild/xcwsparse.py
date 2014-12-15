@@ -3,6 +3,7 @@ from .xcprojparse import *
 import xml.etree.ElementTree as xml
 import os
 import sys
+from .print_utils import *
 from .developer_tools import *
 from .xcschemeparse import *
 
@@ -19,7 +20,7 @@ class xcwsparse(object):
             except:
                 self.data = {};
         else:
-            print 'Invalid xcworkspace file!';
+            PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Invalid xcworkspace file!'), PrintUtils_Colour('reset', True)]);
     
     def isValid(self):
         return self.data != {};
@@ -36,7 +37,7 @@ class xcwsparse(object):
         elif path_type == 'container':
             return os.path.join(self.path.base_path, item_path);
         else:
-            print 'Invalid item path name!';
+            PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Invalid item path name!'), PrintUtils_Colour('reset', True)]);
             return item_path;
     
     def parsePathsFromXMLItem(self, node, path):

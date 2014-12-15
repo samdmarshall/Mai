@@ -23,9 +23,9 @@ class xcparse(object):
                 for project_file in workspace_file.projects():
                     self.projects.append(project_file);
             else:
-                print 'invalid file';
+                PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Invalid file!'), PrintUtils_Colour('reset', True)]);
         else:
-            print 'Could not find file';
+            PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Could not find file!'), PrintUtils_Colour('reset', True)]);
     
     def iterateProjectsForCall(self, call):
         items = [];

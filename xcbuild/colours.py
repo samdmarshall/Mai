@@ -18,7 +18,7 @@ COLOUR_CODES = {
     'default': (49, 39)
 };
 
-def term_supports_colour():
+def Colours_term_supports_colour():
     return os.environ.has_key('TERM'); # this works for OS X, not sure about other platforms
 
 
@@ -30,9 +30,9 @@ def term_supports_colour():
 #           black, red, green, yellow, blue, magenta, cyan, white, default
 #               True - text colour
 #               False - background colour
-def cmap(name, toggle):
+def Colours_cmap(name, toggle):
     code_list = ();
-    if term_supports_colour() == True and name in COLOUR_CODES:
+    if Colours_term_supports_colour() == True and name in COLOUR_CODES:
         code_list = COLOUR_CODES[name];
     if len(code_list) > 0:
         return '\x1b[' + str(code_list[int(toggle)]) + 'm';

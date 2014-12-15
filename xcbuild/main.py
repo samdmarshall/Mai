@@ -3,6 +3,9 @@ import sys
 import argparse
 from .developer_tools import *
 from .xcparse import *
+from .print_utils import *
+from .xcbconfigparser import *
+from .xcschemeparse import *
 # Main
 def main():
     parser = argparse.ArgumentParser(description='Resolve target dependencies');
@@ -14,10 +17,10 @@ def main():
     xcparser = xcparse(args.filename);
 
     if args.list == True:
-        print 'Schemes';
-        print '========================';
+        PrintUtils_debuglog([PrintUtils_Colour('black',True), PrintUtils_String('%s', 'Schemes'), PrintUtils_Colour('reset', True)]);
+        PrintUtils_debuglog([PrintUtils_Colour('blue',True), PrintUtils_String('%s', '========================'), PrintUtils_Colour('reset', True)]);
         for scheme in xcparser.schemes():
-            print scheme.name;
+            PrintUtils_debuglog([PrintUtils_Colour('black',True), PrintUtils_String('%s', scheme.name), PrintUtils_Colour('reset', True)]);
         sys.exit();
 
     if args.config != None and os.path.exists(args.config) == True:
@@ -25,7 +28,9 @@ def main():
 
         validate_config_schemes = config_file.validateSections(xcparser.schemes());
         if validate_config_schemes[0] == False:
-            print 'Could not find Schemes with names: '+str(list(validate_config_schemes[1]));
+            PrintUtils_debuglog([PrintUtils_Colour('black',True), PrintUtils_String('%s', 'Could not find Schemes with names: '), PrintUtils_Colour('reset', True)]);
+            for invalid_scheme in list(validate_config_schemes[1]):
+                PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', str(invalid_scheme)), PrintUtils_Colour('reset', True)]);
             sys.exit();
 
         for scheme in config_file.sections():
@@ -34,7 +39,7 @@ def main():
             validate_config_scheme_settings = config_file.validateSetting(scheme, config_scheme_settings);
 
             for project in xcparser.projects:
-                if scheme in list(map(xcschemeparse.SchemeName, project.schemes())):
+                if scheme in list(map(xcschemeparseSchemeName, project.schemes())):
                     build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme+'" ';
                     for item in validate_config_scheme_settings:
                         build_command+=str(item)+' ';

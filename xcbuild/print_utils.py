@@ -1,4 +1,3 @@
-from .environment import *
 from .colours import *
 
 
@@ -11,7 +10,7 @@ DISPLAY_KEY = 'display';
 STATE_KEY = 'state';
 
 
-def fmt(args):
+def PrintUtils_fmt(args):
     line = '';
     for item in args:
         item_type = item[TYPE_KEY];
@@ -19,7 +18,7 @@ def fmt(args):
         if item_type == COLOUR_KEY:
             colour_value = item_data[COLOUR_KEY];
             state_value = item_data[STATE_KEY];
-            line += _colours.cmap(colour_value,state_value);
+            line += Colours_cmap(colour_value,state_value);
         elif item_type == STRING_KEY:
             formatter_value = item_data[FORMATTER_KEY];
             display_value = item_data[DISPLAY_KEY];
@@ -30,7 +29,7 @@ def fmt(args):
     print line;
 
 
-def Colour(name, state):
+def PrintUtils_Colour(name, state):
     return {
         TYPE_KEY: COLOUR_KEY,
         DATA_KEY: {
@@ -40,7 +39,7 @@ def Colour(name, state):
     };
 
 
-def String(formatter, value):
+def PrintUtils_String(formatter, value):
     return {
         TYPE_KEY: STRING_KEY,
         DATA_KEY: {
@@ -50,6 +49,5 @@ def String(formatter, value):
     };
 
 
-def debuglog(args):
-    if _environment.debuglog() == str(True):
-        fmt(args);
+def PrintUtils_debuglog(args):
+    PrintUtils_fmt(args);

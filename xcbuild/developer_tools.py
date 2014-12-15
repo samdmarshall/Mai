@@ -19,7 +19,7 @@ class developer_tools(object):
         platform_path = '';
         xcrun_result = make_subprocess_call(('xcode-select', '-p'));
         if xcrun_result[1] != 0:
-            v_log('Please run Xcode first!',0, kVerboseLogLevel);
+            PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Please run Xcode first!'), PrintUtils_Colour('reset', True)]);
             sys.exit();
         developer_path = xcrun_result[0].rstrip('\n');
         return developer_path;

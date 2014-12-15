@@ -25,7 +25,7 @@ class xcprojparse(object):
                 else:
                     print errorMessage;
             else:
-                print 'Invalid xcodeproj file!';
+                PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Invalid xcodeproj file!'), PrintUtils_Colour('reset', True)]);
     
     def isValid(self):
         return self.contents != {};
