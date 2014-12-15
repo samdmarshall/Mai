@@ -3,7 +3,7 @@ from .xcwsparse import *
 import os
 import importlib
 
-class xcparse():
+class xcparse(object):
     root = {};
     projects = [];
     name = '';
@@ -14,11 +14,11 @@ class xcparse():
             self.root_path = path;
             self.name = os.path.basename(path);
             if self.name.endswith('.xcodeproj') or self.name.endswith('.pbproj'):
-                project_file = xcprojparse.xcprojparse(path);
+                project_file = xcprojparse(path);
                 self.projects.append(project_file);
                 self.root = project_file;
             elif self.name.endswith('.xcworkspace'):
-                workspace_file = xcwsparse.xcwsparse(path);
+                workspace_file = xcwsparse(path);
                 self.root = workspace_file;
                 for project_file in workspace_file.projects():
                     self.projects.append(project_file);

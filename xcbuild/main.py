@@ -4,14 +4,14 @@ import argparse
 from .developer_tools import *
 from .xcparse import *
 # Main
-def main(argv):
+def main():
     parser = argparse.ArgumentParser(description='Resolve target dependencies');
     parser.add_argument('filename', help='path to xcodeproj or xcworkspace');
     parser.add_argument('-l', '--list', help='list schemes', action='store_true');
     parser.add_argument('-c', '--config', help='path to the build config file', action='store');
     args = parser.parse_args();
     
-    xcparser = xcparse.xcparse(args.filename);
+    xcparser = xcparse(args.filename);
 
     if args.list == True:
         print 'Schemes';
@@ -21,9 +21,9 @@ def main(argv):
         sys.exit();
 
     if args.config != None and os.path.exists(args.config) == True:
-        config_file = xcbConfigParser.xcbConfigParser(args.config);
+        config_file = xcbconfigparser(args.config);
 
-        validate_config_schemes = config_file.ValidateSections(xcparser.schemes());
+        validate_config_schemes = config_file.validateSections(xcparser.schemes());
         if validate_config_schemes[0] == False:
             print 'Could not find Schemes with names: '+str(list(validate_config_schemes[1]));
             sys.exit();
@@ -31,7 +31,7 @@ def main(argv):
         for scheme in config_file.sections():
             config_scheme_settings = config_file.options(scheme);
 
-            validate_config_scheme_settings = config_file.ValidateSetting(scheme, config_scheme_settings);
+            validate_config_scheme_settings = config_file.validateSetting(scheme, config_scheme_settings);
 
             for project in xcparser.projects:
                 if scheme in list(map(xcschemeparse.SchemeName, project.schemes())):
@@ -42,4 +42,4 @@ def main(argv):
                     print result[0];
 
 if __name__ == "__main__":
-    main(sys.argv[1:]);
+    main();

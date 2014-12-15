@@ -3,13 +3,13 @@ import sys
 import xml.etree.ElementTree as xml
 from .xcbpathobject import *
 
-def GetSharedPath(path):
+def xcschemeparseGetSharedPath(path):
     return os.path.join(path, 'xcshareddata/xcschemes');
 
-def GetUserPath(path):
+def xcschemeparseGetUserPath(path):
     return os.path.join(path, 'xcuserdata/'+os.getlogin()+'.xcuserdatad/xcschemes/');
 
-def ParseDirectoryForXCSchemes(dir_path):
+def xcschemeparseParseDirectoryForXCSchemes(dir_path):
     schemes = [];
     if os.path.exists(dir_path) == True:
         for scheme_file in os.listdir(dir_path):
@@ -20,7 +20,7 @@ def ParseDirectoryForXCSchemes(dir_path):
                     schemes.append(scheme_xml);
     return schemes;
 
-def SchemeName(x):
+def xcschemeparseSchemeName(x):
     return x.name;
 
 class xcschemeparse(object):
@@ -29,7 +29,7 @@ class xcschemeparse(object):
     name = '';
     
     def __init__(self, path):
-        self.path = xcbpathobject.xcbpathobject(path, '');
+        self.path = xcbpathobject(path, '');
         self.name = os.path.basename(path).split('.xcscheme')[0];
         try:
             self.contents = xml.parse(self.path.obj_path);

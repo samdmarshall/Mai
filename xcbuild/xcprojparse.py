@@ -11,7 +11,7 @@ class xcprojparse(object):
     
     def __init__(self, xcproj_path):
         if xcproj_path.endswith('.xcodeproj') or xcproj_path.endswith('.pbproj'):
-            self.path = xcbpathobject.xcbpathobject(xcproj_path, 'project.pbxproj');
+            self.path = xcbpathobject(xcproj_path, 'project.pbxproj');
         
             if os.path.exists(self.path.root_path) == True:
                 # loading project file
@@ -46,11 +46,11 @@ class xcprojparse(object):
     def schemes(self):
         schemes = [];
         # shared schemes
-        shared_path = xcschemeparse.GetSharedPath(self.path.obj_path);
-        shared_schemes = xcschemeparse.ParseDirectoryForXCSchemes(shared_path);
+        shared_path = xcschemeparseGetSharedPath(self.path.obj_path);
+        shared_schemes = xcschemeparseParseDirectoryForXCSchemes(shared_path);
         # user schemes
-        user_path = xcschemeparse.GetUserPath(self.path.obj_path);
-        user_schemes = xcschemeparse.ParseDirectoryForXCSchemes(user_path);
+        user_path = xcschemeparseGetUserPath(self.path.obj_path);
+        user_schemes = xcschemeparseParseDirectoryForXCSchemes(user_path);
         # merge schemes
         for scheme in shared_schemes + user_schemes:
             schemes.append(scheme);

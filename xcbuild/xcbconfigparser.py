@@ -42,5 +42,5 @@ class xcbconfigparser(object):
     def validateSetting(self, scheme, settings_list):
         config_args = [];
         for setting in settings_list:
-            config_args.append(str(setting.upper()+'="'+self.ParseSetting(scheme, setting)+'"'));
+            config_args.append(str(setting.upper()+'="'+self.parseSetting(scheme, setting)+'"'));
         return config_args;
