@@ -44,3 +44,7 @@ class xcparse(object):
         project_targets = self.iterateProjectsForCall('targets');
         root_targets = [];
         return root_targets + project_targets;
+    
+    def files(self):
+        project_files = self.iterateProjectsForCall('files');
+        return project_files;

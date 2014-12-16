@@ -1,5 +1,6 @@
 import Cocoa
 import Foundation
+from .pbxfilereference import *
 from .xcbpathobject import *
 from .xcschemeparse import *
 import os
@@ -55,3 +56,12 @@ class xcprojparse(object):
         for scheme in shared_schemes + user_schemes:
             schemes.append(scheme);
         return schemes;
+    
+    def files(self):
+        files = [];
+        objects = self.objects();
+        for item in objects:
+            if objects[item]['isa'] == 'PBXFileReference':
+                file_ref = pbxfilereference(objects[item], self);
+                files.append(file_ref);
+        return files;
