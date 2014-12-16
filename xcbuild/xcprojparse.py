@@ -57,11 +57,24 @@ class xcprojparse(object):
             schemes.append(scheme);
         return schemes;
     
-    def files(self):
-        files = [];
+    def iterateObjectsForType(self, isa_key, callback):
+        items = [];
         objects = self.objects();
         for item in objects:
-            if objects[item]['isa'] == 'PBXFileReference':
-                file_ref = pbxfilereference(objects[item], self);
-                files.append(file_ref);
-        return files;
+            if objects[item]['isa'] == isa_key:
+                new_item = callback(objects[item], self.contents);
+                items.append(new_item);
+        return items;
+    
+    def files(self):
+        return self.iterateObjectsForType('PBXFileReference', pbxfilereference);
+    
+    def groups(self):
+        return self.iterateObjectsForType('PBXGroup', pbxgroup);
+    
+    def frameworks(self):
+        return self.iterateObjectsForType('PBXFrameworksBuildPhase', pbxframeworkbuildphase);
+    
+    def buildfiles(self):
+        return self.iterateObjectsForType('PBXBuildFile', pbxframeworkbuildphase);
+    

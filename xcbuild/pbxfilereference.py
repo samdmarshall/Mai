@@ -6,10 +6,8 @@ class pbxfilereference(object):
     name = '';
     path = '';
     ftype = '';
-    owner = {};
     
-    def __init__(self, dictionary, proj):
-        self.owner = proj;
+    def __init__(self, dictionary, project):
         if 'path' in dictionary.keys():
             self.path = dictionary['path'];
             self.name = os.path.basename(self.path);
