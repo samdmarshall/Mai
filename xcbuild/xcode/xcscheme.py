@@ -2,7 +2,8 @@ from __future__ import absolute_import
 import os
 import sys
 import xml.etree.ElementTree as xml
-from .Path import *
+
+from ..Path import *
 
 from .XCSchemeActions.BuildAction import BuildAction
 from .XCSchemeActions.TestAction import TestAction
@@ -54,7 +55,6 @@ class xcscheme(object):
     
     def buildAction(self):
         action = BuildAction(self.getAction('BuildAction'));
-        
     
     def testAction(self):
         action = TestAction(self.getAction('TestAction'));

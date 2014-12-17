@@ -1,10 +1,12 @@
 from __future__ import absolute_import
-from .xcodeproj import *
-from .xcworkspace import *
-from .Logger import *
-from .xcscheme import *
 import os
 import importlib
+
+from ..Logger import *
+
+from .xcodeproj import *
+from .xcworkspace import *
+from .xcscheme import *
 
 class xcparse(object):
     root = {};
@@ -37,3 +39,6 @@ class xcparse(object):
                 project_schemes.append(scheme);
         root_schemes = self.root.schemes();
         return root_schemes + project_schemes;
+    
+    def schemeNameSet(self):
+        return set(list(map(XCSchemeName, self.schemes())));

@@ -3,7 +3,6 @@ import os
 import sys
 import ConfigParser
 import collections
-from .xcscheme import *
 import re
 
 class Config(object):
@@ -35,8 +34,7 @@ class Config(object):
         else:
             return subvalue;
     
-    def validateSections(self, scheme_list):
-        scheme_set = set(list(map(XCSchemeName, scheme_list)));
+    def validateSections(self, scheme_set):
         section_set = set(self.sections());
         return (section_set.issubset(scheme_set), section_set.difference(scheme_set));
     

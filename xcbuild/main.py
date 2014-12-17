@@ -2,11 +2,13 @@ from __future__ import absolute_import
 import os
 import sys
 import argparse
-from .xcrun import *
-from .xcparse import *
+
 from .Logger import *
 from .Config import *
-from .xcscheme import *
+from .xcode import xcparse
+from .xcode import xcodeproj
+from .xcode import xcscheme
+
 # Main
 def main():
     parser = argparse.ArgumentParser(description='Resolve target dependencies');
@@ -27,7 +29,7 @@ def main():
     if args.config != None and os.path.exists(args.config) == True:
         config_file = Config(args.config);
         
-        validate_config_schemes = config_file.validateSections(xcparser.schemes());
+        validate_config_schemes = config_file.validateSections(xcparser.schemeNameSet());
         if validate_config_schemes[0] == False:
             Logger.debuglog([Logger.colour('black',True), Logger.string('%s', 'Could not find Schemes with names: '), Logger.colour('reset', True)]);
             for invalid_scheme in list(validate_config_schemes[1]):

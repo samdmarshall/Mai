@@ -1,11 +1,13 @@
 from __future__ import absolute_import
 import Cocoa
 import Foundation
-from .Path import *
-from .xcscheme import *
-from .Logger import *
 import os
 import sys
+
+from ..Path import *
+from ..Logger import *
+
+from .xcscheme import *
 
 class xcodeproj(object):
     path = {};

@@ -1,10 +1,12 @@
 from __future__ import absolute_import
-from .Path import *
-from .xcodeproj import *
 import xml.etree.ElementTree as xml
 import os
 import sys
-from .Logger import *
+
+from ..Path import *
+from ..Logger import *
+
+from .xcodeproj import *
 from .xcrun import *
 from .xcscheme import *
 

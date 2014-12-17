@@ -1,7 +1,8 @@
 import os
 import sys
 import subprocess
-from .Logger import *
+
+from ..Logger import *
 
 class xcrun(object):
     
