@@ -3,7 +3,7 @@ import Foundation
 import os
 
 class pbxframeworkbuildphase(object):
-    self.frameworks = [];
+    frameworks = [];
     
     def __init__(self, dictionary, project):
         if 'files' in dictionary.keys():

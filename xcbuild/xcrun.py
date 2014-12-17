@@ -1,10 +1,12 @@
 import os
 import sys
 import subprocess
+from .Logger import *
 
-class developer_tools(object):
+class xcrun(object):
     
-    def make_subprocess_call(call_args, shell_state=False):
+    @classmethod
+    def make_subprocess_call(cls, call_args, shell_state=False):
         error = 0;
         output = '';
         try:
@@ -13,13 +15,14 @@ class developer_tools(object):
         except CalledProcessError as e:
             output = e.output;
             error = e.returncode;
-            return (output, error);
+        return (output, error);
     
-    def resolve_developer_path():
+    @classmethod
+    def resolve_developer_path(cls):
         platform_path = '';
-        xcrun_result = make_subprocess_call(('xcode-select', '-p'));
+        xcrun_result = xcrun.make_subprocess_call(('xcode-select', '-p'));
         if xcrun_result[1] != 0:
-            PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Please run Xcode first!'), PrintUtils_Colour('reset', True)]);
+            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please run Xcode first!'), Logger.colour('reset', True)]);
             sys.exit();
         developer_path = xcrun_result[0].rstrip('\n');
         return developer_path;

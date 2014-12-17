@@ -1,18 +1,18 @@
-from .xcbpathobject import *
-from .xcprojparse import *
+from .Path import *
+from .xcodeproj import *
 import xml.etree.ElementTree as xml
 import os
 import sys
-from .print_utils import *
-from .developer_tools import *
-from .xcschemeparse import *
+from .Logger import *
+from .xcrun import *
+from .xcscheme import *
 
-class xcwsparse(object):
+class xcworkspace(object):
     path = {};
     data = {};
     
     def __init__(self, xcworkspace_path):
-        self.path = xcbpathobject(xcworkspace_path, 'contents.xcworkspacedata');
+        self.path = Path(xcworkspace_path, 'contents.xcworkspacedata');
         
         if os.path.exists(self.path.root_path) == True:
             try:
@@ -20,7 +20,7 @@ class xcwsparse(object):
             except:
                 self.data = {};
         else:
-            PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Invalid xcworkspace file!'), PrintUtils_Colour('reset', True)]);
+            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid xcworkspace file!'), Logger.colour('reset', True)]);
     
     def isValid(self):
         return self.data != {};
@@ -33,11 +33,11 @@ class xcwsparse(object):
         elif path_type == 'absolute':
             return item_path;
         elif path_type == 'developer':
-            return os.path.join(developer_tools.resolve_developer_path(), item_path);
+            return os.path.join(xcrun.resolve_developer_path(), item_path);
         elif path_type == 'container':
             return os.path.join(self.path.base_path, item_path);
         else:
-            PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Invalid item path name!'), PrintUtils_Colour('reset', True)]);
+            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid item path name!'), Logger.colour('reset', True)]);
             return item_path;
     
     def parsePathsFromXMLItem(self, node, path):
@@ -45,7 +45,7 @@ class xcwsparse(object):
         item_path = self.resolvePathFromXMLItem(node, path);
         if node.tag == 'FileRef':
             if os.path.exists(item_path) == True:
-                project_parse = xcprojparse(item_path);
+                project_parse = xcodeproj(item_path);
                 if project_parse.isValid() == True:
                     results.append(project_parse);
         if node.tag == 'Group':
@@ -70,11 +70,11 @@ class xcwsparse(object):
     def schemes(self):
         schemes = [];
         # shared schemes
-        shared_path = xcschemeparseGetSharedPath(self.path.obj_path);
-        shared_schemes = xcschemeparseParseDirectoryForXCSchemes(shared_path);
+        shared_path = XCSchemeGetSharedPath(self.path.obj_path);
+        shared_schemes = XCSchemeParseDirectory(shared_path);
         # user schemes
-        user_path = xcschemeparseGetUserPath(self.path.obj_path);
-        user_schemes = xcschemeparseParseDirectoryForXCSchemes(user_path);
+        user_path = XCSchemeGetUserPath(self.path.obj_path);
+        user_schemes = XCSchemeParseDirectory(user_path);
         # merge schemes
         for scheme in shared_schemes + user_schemes:
             schemes.append(scheme);

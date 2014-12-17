@@ -3,7 +3,7 @@ import Foundation
 import os
 
 class pbxbuildfile(object):
-    self.reference = {};
+    reference = {};
     
     def __init__(self, dictionary, project):
         if 'fileRef' in dictionary.keys():

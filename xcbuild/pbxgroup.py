@@ -3,8 +3,8 @@ import Foundation
 import os
 
 class pbxgroup(object):
-    self.name = '';
-    self.children = [];
+    name = '';
+    children = [];
     
     def __init__(self, dictionary, project):
         if 'name' in dictionary.keys():

@@ -1,19 +1,19 @@
 import Cocoa
 import Foundation
-from .pbxfilereference import *
-from .xcbpathobject import *
-from .xcschemeparse import *
+from .Path import *
+from .xcscheme import *
+from .Logger import *
 import os
 import sys
 
-class xcprojparse(object):
+class xcodeproj(object):
     path = {};
     contents = {};
     
     def __init__(self, xcproj_path):
         if xcproj_path.endswith('.xcodeproj') or xcproj_path.endswith('.pbproj'):
-            self.path = xcbpathobject(xcproj_path, 'project.pbxproj');
-        
+            self.path = Path(xcproj_path, 'project.pbxproj');
+            
             if os.path.exists(self.path.root_path) == True:
                 # loading project file
                 plistNSData, errorMessage = Foundation.NSData.dataWithContentsOfFile_options_error_(self.path.root_path, Foundation.NSUncachedRead, None);
@@ -26,7 +26,7 @@ class xcprojparse(object):
                 else:
                     print errorMessage;
             else:
-                PrintUtils_debuglog([PrintUtils_Colour('red',True), PrintUtils_String('%s', 'Invalid xcodeproj file!'), PrintUtils_Colour('reset', True)]);
+                Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid xcodeproj file!'), Logger.colour('reset', True)]);
     
     def isValid(self):
         return self.contents != {};
@@ -47,11 +47,11 @@ class xcprojparse(object):
     def schemes(self):
         schemes = [];
         # shared schemes
-        shared_path = xcschemeparseGetSharedPath(self.path.obj_path);
-        shared_schemes = xcschemeparseParseDirectoryForXCSchemes(shared_path);
+        shared_path = XCSchemeGetSharedPath(self.path.obj_path);
+        shared_schemes = XCSchemeParseDirectory(shared_path);
         # user schemes
-        user_path = xcschemeparseGetUserPath(self.path.obj_path);
-        user_schemes = xcschemeparseParseDirectoryForXCSchemes(user_path);
+        user_path = XCSchemeGetUserPath(self.path.obj_path);
+        user_schemes = XCSchemeParseDirectory(user_path);
         # merge schemes
         for scheme in shared_schemes + user_schemes:
             schemes.append(scheme);

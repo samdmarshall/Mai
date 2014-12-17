@@ -1,6 +1,6 @@
 import os
 
-class xcbpathobject(object):
+class Path(object):
     base_path = '';
     obj_path = '';
     root_path = '';

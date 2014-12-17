@@ -2,10 +2,10 @@ import os
 import sys
 import ConfigParser
 import collections
-from .xcschemeparse import *
+from .xcscheme import *
 import re
 
-class xcbconfigparser(object):
+class Config(object):
     path = '';
     contents = {};
     
@@ -35,7 +35,7 @@ class xcbconfigparser(object):
             return subvalue;
     
     def validateSections(self, scheme_list):
-        scheme_set = set(list(map(xcschemeparseSchemeName, scheme_list)));
+        scheme_set = set(list(map(XCSchemeName, scheme_list)));
         section_set = set(self.sections());
         return (section_set.issubset(scheme_set), section_set.difference(scheme_set));
     
