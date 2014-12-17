@@ -10,10 +10,12 @@ class XCConfigurationList(object):
     defaultConfigurationIsVisible = 0;
     defaultConfigurationName = '';
     
-    def __init__(self, dictionary, project):
+    def __init__(self, lookup_func, dictionary, project):
         if 'buildConfigurations' in dictionary.keys():
             for configuration in dictionary['buildConfigurations']:
-                self.buildConfigurations.append(PBXResolver(project.objects()[configuration], project));
+                result = lookup_func(project.objects()[configuration]);
+                if result[0] == True:
+                    self.buildConfigurations.append(result[1](lookup_func, project.objects()[configuration], project));
         if 'defaultConfigurationName' in dictionary.keys():
             self.defaultConfigurationName = dictionary['defaultConfigurationName'];
         if 'defaultConfigurationIsVisible' in dictionary.keys():

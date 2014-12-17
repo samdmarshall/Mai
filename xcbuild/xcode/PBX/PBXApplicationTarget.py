@@ -15,12 +15,16 @@ class PBXApplicationTarget(object):
     productReference = {};
     productSettingsXML = '';
     
-    def __init__(self, dictionary, project):
+    def __init__(self, lookup_func, dictionary, project):
         if 'buildConfigurationList' in dictionary.keys():
-            self.buildConfigurationList = PBXResolver(project.objects()[dictionary['buildConfigurationList']], project);
+            result = lookup_func(project.objects()[dictionary['buildConfigurationList']])
+            if result[0] == True:
+                self.buildConfigurationList = result[1](lookup_func, project.objects()[dictionary['buildConfigurationList']], project);
         if 'buildPhases' in dictionary.keys():
             for phase in dictionary['buildPhases']:
-                self.buildPhases.append(PBXGenericBuildPhase(project.objects()[phase], project));
+                result = lookup_func(project.objects()[phase]);
+                if result[0] == True:
+                    self.buildPhases.append(result[1](lookup_func, project.objects()[phase], project));
         if 'dependencies' in dictionary.keys():
             for dep in dictionary['dependencies']:
                 # this may need to be changed to PBXTargetDependency
@@ -34,4 +38,6 @@ class PBXApplicationTarget(object):
         if 'productSettingsXML' in dictionary.keys():
             self.productSettingsXML = dictionary['productSettingsXML'];
         if 'productReference' in dictionary.keys():
-            self.productReference = PBXResolver(project.objects()[dictionary['PBXFileReference']], project);
+            result = lookup_func(project.objects()[dictionary['productReference']]);
+            if result[0] == True:
+                self.productReference = result[1](lookup_func, project.objects()[dictionary['productReference']], project);

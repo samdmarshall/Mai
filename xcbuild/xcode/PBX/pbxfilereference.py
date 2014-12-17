@@ -9,7 +9,7 @@ class PBXFileReference(object):
     ftype = '';
     sourceTree = '';
     
-    def __init__(self, dictionary, project):
+    def __init__(self, lookup_func, dictionary, project):
         if 'path' in dictionary.keys():
             self.path = dictionary['path'];
             self.name = os.path.basename(self.path);

@@ -1,3 +1,4 @@
+from .PBXResolver import *
 from .PBXBuildFile import *
 from .PBXFileReference import *
 from .PBXFrameworkBuildPhase import *
@@ -17,4 +18,3 @@ from .PBXProject import *
 from .PBXResourcesBuildPhase import *
 from .PBXRezBuildPhase import *
 from .PBXShellScriptBuildPhase import *
-from .PBXResolver import *

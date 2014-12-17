@@ -14,12 +14,14 @@ class PBXShellScriptBuildPhase(object):
     shellScript = '';
     runOnlyForDeploymentPostprocessing = 0;
     
-    def __init__(self, dictionary, project):
+    def __init__(self, lookup_func, dictionary, project):
         if 'buildActionMask' in dictionary.keys():
             self.buildActionMask = dictionary['buildActionMask'];
         if 'files' in dictionary.keys():
             for file in dictionary['files']:
-                self.files.append(PBXResolver(project.objects()[file], project));
+                result = lookup_func(project.objects()[file]);
+                if result[0] == True:
+                    self.files.append(result[1](lookup_func, project.objects()[file], project));
         if 'runOnlyForDeploymentPostprocessing' in dictionary.keys():
             self.runOnlyForDeploymentPostprocessing = dictionary['runOnlyForDeploymentPostprocessing'];
         if 'shellScript' in dictionary.keys():
@@ -28,7 +30,7 @@ class PBXShellScriptBuildPhase(object):
             self.shellPath = dictionary['shellPath'];
         if 'inputPaths' in dictionary.keys():
             for inputPath in dictionary['inputPaths']:
-                self.inputPaths.append(PBXResolver(project.objects()[inputPath], project));
+                self.inputPaths.append(inputPath);
         if 'outputPaths' in dictionary.keys():
             for outputPath in dictionary['outputPaths']:
-                self.outputPaths.append(PBXResolver(project.objects()[outputPath], project));
+                self.outputPaths.append(outputPath);

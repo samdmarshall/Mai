@@ -8,6 +8,8 @@ from .PBXResolver import *
 class PBXBuildFile(object):
     fileRef = {};
     
-    def __init__(self, dictionary, project):
+    def __init__(self, lookup_func, dictionary, project):
         if 'fileRef' in dictionary.keys():
-            self.fileRef = PBXResolver(project.objects()[dictionary['fileRef']], project);
+            result = lookup_func(project.objects()[dictionary['fileRef']]);
+            if result[0] == True:
+                self.fileRef = result[1](lookup_func, project.objects()[dictionary['fileRef']], project)

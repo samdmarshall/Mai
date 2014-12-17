@@ -9,9 +9,12 @@ from ..Logger import *
 
 from .xcscheme import *
 
+from .PBX.PBXResolver import PBXResolver
+
 class xcodeproj(object):
     path = {};
     contents = {};
+    rootObject = {};
     
     def __init__(self, xcproj_path):
         if xcproj_path.endswith('.xcodeproj') or xcproj_path.endswith('.pbproj'):
@@ -24,6 +27,9 @@ class xcodeproj(object):
                     plistContents, plistFormat, errorMessage = Foundation.NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(plistNSData, Foundation.NSPropertyListMutableContainers, None, None);
                     if errorMessage == None:
                         self.contents = plistContents;
+                        result = PBXResolver(self.objects()[self.contents['rootObject']])
+                        if result[0] == True:
+                            self.rootObject = result[1](PBXResolver, self.objects()[self.contents['rootObject']], self);
                     else:
                         print errorMessage;
                 else:
@@ -37,15 +43,11 @@ class xcodeproj(object):
     def objects(self):
         return self.contents['objects'];
     
-    def rootObject(self):
-        return self.objects()[self.contents['rootObject']];
-    
     def targets(self):
-        targets = [];
-        target_ids = self.rootObject()['targets'];
-        for target in target_ids:
-            targets.append(self.objects()[target]);
-        return targets;
+        if self.rootObject != {}:
+            return self.rootObject.targets;
+        else:
+            return [];
     
     def schemes(self):
         schemes = [];
@@ -69,25 +71,4 @@ class xcodeproj(object):
                 found_scheme = scheme;
                 break;
         return (result, found_scheme);
-    
-    def iterateObjectsForType(self, isa_key, callback):
-        items = [];
-        objects = self.objects();
-        for item in objects:
-            if objects[item]['isa'] == isa_key:
-                new_item = callback(objects[item], self.contents);
-                items.append(new_item);
-        return items;
-    
-    def files(self):
-        return self.iterateObjectsForType('PBXFileReference', pbxfilereference);
-    
-    def groups(self):
-        return self.iterateObjectsForType('PBXGroup', pbxgroup);
-    
-    def frameworks(self):
-        return self.iterateObjectsForType('PBXFrameworksBuildPhase', pbxframeworkbuildphase);
-    
-    def buildfiles(self):
-        return self.iterateObjectsForType('PBXBuildFile', pbxframeworkbuildphase);
     

@@ -15,13 +15,15 @@ class PBXProject(object):
     mainGroup = {};
     projectDirPath = '';
     projectRoot = '';
-    targets = {};
+    targets = [];
     
-    def __init__(self, dictionary, project):
+    def __init__(self, lookup_func, dictionary, project):
         if 'attributes' in dictionary.keys():
             self.attributes = dictionary['attributes'];
         if 'buildConfigurationList' in dictionary.keys():
-            self.buildConfigurationList = PBXResolver(project.objects()[dictionary['buildConfigurationList']], project);
+            result = lookup_func(project.objects()[dictionary['buildConfigurationList']])
+            if result[0] == True:
+                self.buildConfigurationList = result[1](lookup_func, project.objects()[dictionary['buildConfigurationList']], project);
         if 'compatibilityVersion' in dictionary.keys():
             self.compatibilityVersion = dictionary['compatibilityVersion'];
         if 'developmentRegion' in dictionary.keys():
@@ -31,11 +33,15 @@ class PBXProject(object):
         if 'knownRegions' in dictionary.keys():
             self.knownRegions = dictionary['knownRegions'];
         if 'mainGroup' in dictionary.keys():
-            self.mainGroup = PBXResolver(project.objects()[dictionary['mainGroup']], project);
+            result = lookup_func(project.objects()[dictionary['mainGroup']])
+            if result[0] == True:
+                self.mainGroup = result[1](lookup_func, project.objects()[dictionary['mainGroup']], project);
         if 'projectDirPath' in dictionary.keys():
             self.projectDirPath = dictionary['projectDirPath'];
         if 'projectRoot' in dictionary.keys():
             self.projectRoot = dictionary['projectRoot'];
         if 'targets' in dictionary.keys():
             for target in dictionary['targets']:
-                self.targets.append(PBXResolver(project.objects()[target], project));
+                result = lookup_func(project.objects()[target]);
+                if result[0] == True:
+                    self.targets.append(result[1](lookup_func, project.objects()[target], project));

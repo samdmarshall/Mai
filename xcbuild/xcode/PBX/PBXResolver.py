@@ -22,9 +22,8 @@ from .PBXProject import *
 from .PBXResourcesBuildPhase import *
 from .PBXRezBuildPhase import *
 from .PBXShellScriptBuildPhase import *
-from .PBXGenericBuildPhase import *
 
-TYPE_RESOLVER = {
+PBX_TYPE_RESOLVER = {
     'PBXBuildFile': PBXBuildFile,
     'PBXFileReference': PBXFileReference,
     'PBXFrameworkBuildPhase': PBXFrameworkBuildPhase,
@@ -46,8 +45,9 @@ TYPE_RESOLVER = {
     'PBXShellScriptBuildPhase': PBXShellScriptBuildPhase
 };
 
-def PBXResolver(dictionary, project):
-        if dictionary['isa'] in TYPE_RESOLVER.keys():
-            return TYPE_RESOLVER[dictionary['isa']](dictionary, project);
-        else:
-            return {};
+def PBXResolver(dictionary):
+    global PBX_TYPE_RESOLVER;
+    if dictionary['isa'] in PBX_TYPE_RESOLVER.keys():
+        return (True, PBX_TYPE_RESOLVER[dictionary['isa']]);
+    else:
+        return (False, {});

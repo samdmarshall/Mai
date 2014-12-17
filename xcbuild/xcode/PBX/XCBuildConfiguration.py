@@ -7,7 +7,7 @@ class XCBuildConfiguration(object):
     buildSettings = {};
     name = '';
     
-    def __init__(self, dictionary, project):
+    def __init__(self, lookup_func, dictionary, project):
         if 'buildSettings' in dictionary.keys():
             self.buildSettings = dictionary['buildSettings'];
         if 'name' in dictionary.keys():
