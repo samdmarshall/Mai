@@ -41,10 +41,9 @@ def main():
             
             validate_config_scheme_settings = config_file.validateSetting(scheme, config_scheme_settings);
             
-            for project in xcparser.projects:
-                project_scheme = project.hasSchemeWithName(scheme);
-                if project_scheme[0] == True:
-                    project_scheme[1].buildAction();
+            result = xcparser.containerForSchemeWithName(scheme);
+            if result[0] == True:
+                result[1].buildAction();
                 
                     # build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme+'" ';
                     # for item in validate_config_scheme_settings:

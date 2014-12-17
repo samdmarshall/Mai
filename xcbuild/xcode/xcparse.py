@@ -42,3 +42,18 @@ class xcparse(object):
     
     def schemeNameSet(self):
         return set(list(map(XCSchemeName, self.schemes())));
+    
+    def containerForSchemeWithName(self, scheme_name):
+        scheme = {};
+        container = {};
+        found = False;
+        searchableItems = self.projects;
+        searchableItems.append(self.root);
+        for project in searchableItems:
+            result = project.hasSchemeWithName(scheme_name);
+            found = result[0];
+            if found == True:
+                scheme = result[1];
+                container = project;
+                break;
+        return (found, scheme, container);
