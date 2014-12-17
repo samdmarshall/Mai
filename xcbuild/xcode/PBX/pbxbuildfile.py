@@ -3,7 +3,7 @@ import Cocoa
 import Foundation
 import os
 
-class pbxbuildfile(object):
+class PBXBuildFile(object):
     reference = {};
     
     def __init__(self, dictionary, project):

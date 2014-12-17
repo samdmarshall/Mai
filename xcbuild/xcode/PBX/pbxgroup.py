@@ -3,7 +3,7 @@ import Cocoa
 import Foundation
 import os
 
-class pbxgroup(object):
+class PBXGroup(object):
     name = '';
     children = [];
     

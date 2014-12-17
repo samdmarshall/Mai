@@ -3,7 +3,7 @@ import Cocoa
 import Foundation
 import os
 
-class pbxframeworkbuildphase(object):
+class PBXFrameworkBuildPhase(object):
     frameworks = [];
     
     def __init__(self, dictionary, project):
