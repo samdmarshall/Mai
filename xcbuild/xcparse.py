@@ -1,6 +1,8 @@
+from __future__ import absolute_import
 from .xcodeproj import *
 from .xcworkspace import *
 from .Logger import *
+from .xcscheme import *
 import os
 import importlib
 

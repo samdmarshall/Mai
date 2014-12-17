@@ -8,7 +8,7 @@ setup(
     author='Sam Marshall',
     author_email='me@samdmarshall.com',
     license='BSD 3-Clause',
-    packages=['xcbuild'],
+    packages=['xcbuild', 'xcbuild/PBX', 'xcbuild/XCSchemeActions'],
     entry_points = {
         'console_scripts': ['xcbuild = xcbuild:main'],
     },

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import os
 import sys
 import argparse
@@ -39,12 +40,15 @@ def main():
             validate_config_scheme_settings = config_file.validateSetting(scheme, config_scheme_settings);
             
             for project in xcparser.projects:
-                if scheme in list(map(XCSchemeName, project.schemes())):
-                    build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme+'" ';
-                    for item in validate_config_scheme_settings:
-                        build_command+=str(item)+' ';
-                    result = xcrun.make_subprocess_call(build_command, True);
-                    print result[0];
+                project_scheme = project.hasSchemeWithName(scheme);
+                if project_scheme[0] == True:
+                    project_scheme[1].buildAction();
+                
+                    # build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme+'" ';
+                    # for item in validate_config_scheme_settings:
+                    #     build_command+=str(item)+' ';
+                    # result = xcrun.make_subprocess_call(build_command, True);
+                    # print result[0];
 
 if __name__ == "__main__":
     main();

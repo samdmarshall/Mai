@@ -1,7 +1,15 @@
+from __future__ import absolute_import
 import os
 import sys
 import xml.etree.ElementTree as xml
 from .Path import *
+
+from .XCSchemeActions.BuildAction import BuildAction
+from .XCSchemeActions.TestAction import TestAction
+from .XCSchemeActions.LaunchAction import LaunchAction
+from .XCSchemeActions.ProfileAction import ProfileAction
+from .XCSchemeActions.AnalyzeAction import AnalyzeAction
+from .XCSchemeActions.ArchiveAction import ArchiveAction
 
 def XCSchemeGetSharedPath(path):
     return os.path.join(path, 'xcshareddata/xcschemes');
@@ -39,4 +47,26 @@ class xcscheme(object):
     def isValid(self):
         return self.contents != {};
     
+    def getAction(self, action_type):
+        for item in list(self.contents.getroot()):
+            if item.tag == action_type:
+                return item;
     
+    def buildAction(self):
+        action = BuildAction(self.getAction('BuildAction'));
+        
+    
+    def testAction(self):
+        action = TestAction(self.getAction('TestAction'));
+    
+    def launchAction(self):
+        action = LaunchAction(self.getAction('LaunchAction'));
+    
+    def profileAction(self):
+        action = ProfileAction(self.getAction('ProfileAction'));
+    
+    def analyzeAction(self):
+        action = AnalyzeAction(self.getAction('AnalyzeAction'));
+    
+    def archiveAction(self):
+        action = ArchiveAction(self.getAction('ArchiveAction'));

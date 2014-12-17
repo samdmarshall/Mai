@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import Cocoa
 import Foundation
 from .Path import *
@@ -56,6 +57,16 @@ class xcodeproj(object):
         for scheme in shared_schemes + user_schemes:
             schemes.append(scheme);
         return schemes;
+    
+    def hasSchemeWithName(self, scheme_name):
+        schemes = self.schemes();
+        result = scheme_name in list(map(XCSchemeName, schemes));
+        found_scheme = {};
+        for scheme in schemes:
+            if scheme.name == scheme_name:
+                found_scheme = scheme;
+                break;
+        return (result, found_scheme);
     
     def iterateObjectsForType(self, isa_key, callback):
         items = [];
