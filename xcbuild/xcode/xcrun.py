@@ -4,7 +4,23 @@ import subprocess
 
 from ..Logger import *
 
+
 class xcrun(object):
+    
+    @classmethod
+    def resolvePathFromLocation(cls, location_string, path, base_path):
+        path_type, item_path = location_string.split(':');
+        if path_type == 'group':
+            return os.path.join(path, item_path);
+        elif path_type == 'absolute':
+            return item_path;
+        elif path_type == 'developer':
+            return os.path.join(resolve_developer_path(), item_path);
+        elif path_type == 'container':
+            return os.path.join(base_path, item_path);
+        else:
+            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid item path name!'), Logger.colour('reset', True)]);
+            return item_path;
     
     @classmethod
     def make_subprocess_call(cls, call_args, shell_state=False):

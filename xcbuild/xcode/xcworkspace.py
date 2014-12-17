@@ -30,18 +30,8 @@ class xcworkspace(object):
     
     def resolvePathFromXMLItem(self, node, path):
         file_relative_path = node.attrib['location'];
-        path_type, item_path = file_relative_path.split(':');
-        if path_type == 'group':
-            return os.path.join(path, item_path);
-        elif path_type == 'absolute':
-            return item_path;
-        elif path_type == 'developer':
-            return os.path.join(xcrun.resolve_developer_path(), item_path);
-        elif path_type == 'container':
-            return os.path.join(self.path.base_path, item_path);
-        else:
-            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid item path name!'), Logger.colour('reset', True)]);
-            return item_path;
+        result = xcrun.resolvePathFromLocation(file_relative_path, path, self.path.base_path);
+        return result;
     
     def parsePathsFromXMLItem(self, node, path):
         results = [];

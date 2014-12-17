@@ -43,7 +43,7 @@ def main():
             
             result = xcparser.containerForSchemeWithName(scheme);
             if result[0] == True:
-                result[1].buildAction();
+                result[1].buildAction(result[2]);
                 
                     # build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme+'" ';
                     # for item in validate_config_scheme_settings:

@@ -5,6 +5,8 @@ import xml.etree.ElementTree as xml
 
 from ..Path import *
 
+from .xcrun import *
+
 from .XCSchemeActions.BuildAction import BuildAction
 from .XCSchemeActions.TestAction import TestAction
 from .XCSchemeActions.LaunchAction import LaunchAction
@@ -54,20 +56,22 @@ class xcscheme(object):
                 return item;
         return {};
     
-    def buildAction(self):
+    def buildAction(self, container):
         action = BuildAction(self.getAction('BuildAction'));
+        for child in action.children:
+            print xcrun.resolvePathFromLocation(child.target.ReferencedContainer, container.path.base_path, container.path.base_path);
     
-    def testAction(self):
+    def testAction(self, container):
         action = TestAction(self.getAction('TestAction'));
     
-    def launchAction(self):
+    def launchAction(self, container):
         action = LaunchAction(self.getAction('LaunchAction'));
     
-    def profileAction(self):
+    def profileAction(self, container):
         action = ProfileAction(self.getAction('ProfileAction'));
     
-    def analyzeAction(self):
+    def analyzeAction(self, container):
         action = AnalyzeAction(self.getAction('AnalyzeAction'));
     
-    def archiveAction(self):
+    def archiveAction(self, container):
         action = ArchiveAction(self.getAction('ArchiveAction'));
