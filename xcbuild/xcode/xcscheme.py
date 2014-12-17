@@ -52,6 +52,7 @@ class xcscheme(object):
         for item in list(self.contents.getroot()):
             if item.tag == action_type:
                 return item;
+        return {};
     
     def buildAction(self):
         action = BuildAction(self.getAction('BuildAction'));
