@@ -3,8 +3,14 @@ import Cocoa
 import Foundation
 import os
 
+from .PBXResolver import *
+
 class PBXTargetDependency(object):
-    contents = {};
+    target = {};
+    proxy = {};
     
     def __init__(self, dictionary, project):
-        self.contents = dictionary;
+        if 'target' in dictionary.keys():
+            self.target = PBXResolver(project.objects()[dictionary['target']], project);
+        if 'targetProxy' in dictionary.keys():
+            self.target = PBXResolver(project.objects()[dictionary['targetProxy']], project);

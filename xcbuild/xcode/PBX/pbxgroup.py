@@ -3,8 +3,11 @@ import Cocoa
 import Foundation
 import os
 
+from .PBXResolver import *
+
 class PBXGroup(object):
     name = '';
+    path = '';
     children = [];
     
     def __init__(self, dictionary, project):
@@ -12,4 +15,4 @@ class PBXGroup(object):
             self.name = dictionary['name'];
         if 'children' in dictionary.keys():
             for child in dictionary['children']:
-                self.children.append(child)
+                self.children.append(PBXResolver(project.objects()[child], project));

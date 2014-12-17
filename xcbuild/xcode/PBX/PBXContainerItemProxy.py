@@ -4,7 +4,16 @@ import Foundation
 import os
 
 class PBXContainerItemProxy(object):
-    contents = {};
+    containerPortal = {};
+    proxyType = 0;
+    remoteGlobalIDString = '';
+    remoteInfo = '';
     
     def __init__(self, dictionary, project):
-        self.contents = dictionary;
+        self.containerPortal = project.rootObject();
+        if 'proxyType' in dictionary.keys():
+            self.proxyType = dictionary['proxyType'];
+        if 'remoteGlobalIDString' in dictionary.keys():
+            self.remoteGlobalIDString = dictionary['remoteGlobalIDString'];
+        if 'remoteInfo' in dictionary.keys():
+            self.remoteInfo = dictionary['remoteInfo'];

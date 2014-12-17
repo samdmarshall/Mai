@@ -4,7 +4,11 @@ import Foundation
 import os
 
 class XCBuildConfiguration(object):
-    contents = {};
+    buildSettings = {};
+    name = '';
     
     def __init__(self, dictionary, project):
-        self.contents = dictionary;
+        if 'buildSettings' in dictionary.keys():
+            self.buildSettings = dictionary['buildSettings'];
+        if 'name' in dictionary.keys():
+            self.name = dictionary['name'];
