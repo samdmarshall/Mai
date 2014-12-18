@@ -22,4 +22,6 @@ class ProfileAction(object):
             self.buildConfiguration = self.contents.get('buildConfiguration');
         if 'debugDocumentVersioning' in self.contents.keys():
             self.debugDocumentVersioning = self.contents.get('debugDocumentVersioning');
-        
+    
+    def performAction(self, container, project_constructor):
+        print 'implement me!';

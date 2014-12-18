@@ -31,4 +31,5 @@ class LaunchAction(object):
         if 'allowLocationSimulation' in self.contents.keys():
             self.allowLocationSimulation = self.contents.get('allowLocationSimulation');
         
-        
+    def performAction(self, container, project_constructor):
+        print 'implement me!';

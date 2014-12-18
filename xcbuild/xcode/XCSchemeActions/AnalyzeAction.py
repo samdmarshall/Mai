@@ -9,3 +9,6 @@ class AnalyzeAction(object):
         self.contents = action_xml;
         if 'buildConfiguration' in self.contents.keys():
             self.buildConfiguration = self.contents.get('buildConfiguration');
+    
+    def performAction(self, container, project_constructor):
+        print 'implement me!';
