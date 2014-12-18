@@ -14,13 +14,12 @@ Install
 To install, run `python setup.py install` optionally add `--user` to install it to the user's python install rather than the system
 
 
-
 How To Use
 ----------
 
 
-	usage: xcbuild [-h] [-l] [-c CONFIG] filename
-	
+	usage: xcbuild [-h] [-l] [-c CONFIG] [-a ACTION] filename
+
 	Resolve target dependencies
 
 	positional arguments:
@@ -30,3 +29,4 @@ How To Use
 	  -h, --help                    show this help message and exit
 	  -l, --list                    list schemes
 	  -c CONFIG, --config CONFIG    path to the build config file
+	  -a ACTION, --action ACTION    action to perform: "build", "test", "launch", "profile", "analyze", or "archive"
