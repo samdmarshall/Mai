@@ -31,9 +31,9 @@ class xcodeproj(object):
                         if result[0] == True:
                             self.rootObject = result[1](PBXResolver, self.objects()[self.contents['rootObject']], self);
                     else:
-                        print errorMessage;
+                        Logger.debuglog([Logger.colour('red',True), Logger.string('%s', errorMessage), Logger.colour('reset', True)]);
                 else:
-                    print errorMessage;
+                    Logger.debuglog([Logger.colour('red',True), Logger.string('%s', errorMessage), Logger.colour('reset', True)]);
             else:
                 Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid xcodeproj file!'), Logger.colour('reset', True)]);
     
@@ -42,6 +42,19 @@ class xcodeproj(object):
     
     def objects(self):
         return self.contents['objects'];
+    
+    def subprojects(self):
+        subprojects = [];
+        root_obj = self.objects()[self.contents['rootObject']];
+        if 'projectReferences' in root_obj.keys():
+            for project_dict in root_obj['projectReferences']:
+                result = PBXResolver(self.objects()[project_dict['ProjectRef']]);
+                if result[0] == True:
+                    file_ref = result[1](PBXResolver, self.objects()[project_dict['ProjectRef']], self);
+                    subproject_path = os.path.join(self.path.base_path, file_ref.path);
+                    if os.path.exists(subproject_path) == True:
+                        subprojects.append(xcodeproj(subproject_path));
+        return subprojects;
     
     def targets(self):
         if self.rootObject != {}:
@@ -59,6 +72,7 @@ class xcodeproj(object):
         user_schemes = XCSchemeParseDirectory(user_path);
         # merge schemes
         for scheme in shared_schemes + user_schemes:
+            scheme.container = self.path;
             schemes.append(scheme);
         return schemes;
     

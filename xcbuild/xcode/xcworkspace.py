@@ -70,6 +70,7 @@ class xcworkspace(object):
         user_schemes = XCSchemeParseDirectory(user_path);
         # merge schemes
         for scheme in shared_schemes + user_schemes:
+            scheme.container = self.path;
             schemes.append(scheme);
         return schemes;
     

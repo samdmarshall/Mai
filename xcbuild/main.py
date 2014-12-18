@@ -25,7 +25,7 @@ def main():
         Logger.debuglog([Logger.colour('black',True), Logger.string('%s', 'Schemes'), Logger.colour('reset', True)]);
         Logger.debuglog([Logger.colour('blue',True), Logger.string('%s', '========================'), Logger.colour('reset', True)]);
         for scheme in xcparser.schemes():
-            Logger.debuglog([Logger.colour('black',True), Logger.string('%s', scheme.name), Logger.colour('reset', True)]);
+            Logger.debuglog([Logger.colour('black',True), Logger.string('%s', '['+scheme.name+'] # '+os.path.basename(scheme.container.obj_path)), Logger.colour('reset', True)]);
         sys.exit();
     
     if args.config != None and os.path.exists(args.config) == True:
@@ -44,13 +44,15 @@ def main():
             validate_config_scheme_settings = config_file.validateSetting(scheme, config_scheme_settings);
             
             result = xcparser.containerForSchemeWithName(scheme);
-            if result[0] == True:
+            if result[0] == True and args.action != None:
                 action_func = result[1].actionLookup(args.action);
                 if action_func != None:
                     action_item = action_func(result[2]);
                     action_item.performAction(result, xcodeproj);
                 else:
                     Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please supply an action: "build", "test", "launch", "profile", "analyze", or "archive"'), Logger.colour('reset', True)]);
+            else:
+                Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please specify an action with the -a/--action flag'), Logger.colour('reset', True)]);
 
 if __name__ == "__main__":
     main();
