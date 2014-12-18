@@ -22,6 +22,7 @@ from .PBXProject import *
 from .PBXResourcesBuildPhase import *
 from .PBXRezBuildPhase import *
 from .PBXShellScriptBuildPhase import *
+from .PBXReferenceProxy import *
 
 PBX_TYPE_RESOLVER = {
     'PBXBuildFile': PBXBuildFile,
@@ -42,7 +43,8 @@ PBX_TYPE_RESOLVER = {
     'PBXProject': PBXProject,
     'PBXResourcesBuildPhase': PBXResourcesBuildPhase,
     'PBXRezBuildPhase': PBXRezBuildPhase,
-    'PBXShellScriptBuildPhase': PBXShellScriptBuildPhase
+    'PBXShellScriptBuildPhase': PBXShellScriptBuildPhase,
+    'PBXReferenceProxy': PBXReferenceProxy,
 };
 
 def PBXResolver(dictionary):
