@@ -1,13 +1,13 @@
 from __future__ import absolute_import
 
 class ProfileAction(object):
-    contents = {};
-    children = [];
-    shouldUseLaunchSchemeArgsEnv = '';
-    savedToolIdentifier = '';
-    useCustomWorkingDirectory = '';
-    buildConfiguration = '';
-    debugDocumentVersioning = '';
+    # contents = {};
+    # children = [];
+    # shouldUseLaunchSchemeArgsEnv = '';
+    # savedToolIdentifier = '';
+    # useCustomWorkingDirectory = '';
+    # buildConfiguration = '';
+    # debugDocumentVersioning = '';
     
     
     def __init__(self, action_xml):

@@ -6,8 +6,8 @@ import collections
 import re
 
 class Config(object):
-    path = '';
-    contents = {};
+    # path = '';
+    # contents = {};
     
     def __init__(self, config_path):
         if os.path.exists(config_path) == True:

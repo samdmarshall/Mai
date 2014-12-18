@@ -6,8 +6,8 @@ import os
 from .PBXResolver import *
 
 class PBXTargetDependency(object):
-    target = {};
-    proxy = {};
+    # target = {};
+    # proxy = {};
     
     def __init__(self, lookup_func, dictionary, project):
         if 'target' in dictionary.keys():

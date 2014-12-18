@@ -4,8 +4,8 @@ import Foundation
 import os
 
 class XCBuildConfiguration(object):
-    buildSettings = {};
-    name = '';
+    # buildSettings = {};
+    # name = '';
     
     def __init__(self, lookup_func, dictionary, project):
         if 'buildSettings' in dictionary.keys():

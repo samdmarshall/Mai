@@ -12,9 +12,9 @@ from .xcscheme import *
 from .PBX.PBXResolver import PBXResolver
 
 class xcodeproj(object):
-    path = {};
-    contents = {};
-    rootObject = {};
+    # path = {};
+    # contents = {};
+    # rootObject = {};
     
     def __init__(self, xcproj_path):
         if xcproj_path.endswith('.xcodeproj') or xcproj_path.endswith('.pbproj'):

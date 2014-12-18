@@ -6,16 +6,16 @@ import os
 from .PBXResolver import *
 
 class PBXProject(object):
-    attributes = {};
-    buildConfigurationList = {};
-    compatibilityVersion = '';
-    developmentRegion = '';
-    hasScannedForEncodings = 0;
-    knownRegions = [];
-    mainGroup = {};
-    projectDirPath = '';
-    projectRoot = '';
-    targets = [];
+    # attributes = {};
+    # buildConfigurationList = {};
+    # compatibilityVersion = '';
+    # developmentRegion = '';
+    # hasScannedForEncodings = 0;
+    # knownRegions = [];
+    # mainGroup = {};
+    # projectDirPath = '';
+    # projectRoot = '';
+    # targets = [];
     
     def __init__(self, lookup_func, dictionary, project):
         if 'attributes' in dictionary.keys():
@@ -41,7 +41,9 @@ class PBXProject(object):
         if 'projectRoot' in dictionary.keys():
             self.projectRoot = dictionary['projectRoot'];
         if 'targets' in dictionary.keys():
+            targetList = [];
             for target in dictionary['targets']:
                 result = lookup_func(project.objects()[target]);
                 if result[0] == True:
-                    self.targets.append(result[1](lookup_func, project.objects()[target], project));
+                    targetList.append(result[1](lookup_func, project.objects()[target], project));
+            self.targets = targetList;

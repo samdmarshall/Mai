@@ -8,6 +8,7 @@ from .Config import *
 from .xcode import xcparse
 from .xcode import xcodeproj
 from .xcode import xcscheme
+from .xcode import xcrun
 
 # Main
 def main():
@@ -15,6 +16,7 @@ def main():
     parser.add_argument('filename', help='path to xcodeproj or xcworkspace');
     parser.add_argument('-l', '--list', help='list schemes', action='store_true');
     parser.add_argument('-c', '--config', help='path to the build config file', action='store');
+    parser.add_argument('-a', '--action', help='action to perform: "build", "test", "launch", "profile", "analyze", or "archive"', action='store');
     args = parser.parse_args();
     
     xcparser = xcparse(args.filename);
@@ -43,13 +45,12 @@ def main():
             
             result = xcparser.containerForSchemeWithName(scheme);
             if result[0] == True:
-                result[1].buildAction(result[2]);
-                
-                    # build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme+'" ';
-                    # for item in validate_config_scheme_settings:
-                    #     build_command+=str(item)+' ';
-                    # result = xcrun.make_subprocess_call(build_command, True);
-                    # print result[0];
+                action_func = result[1].actionLookup(args.action);
+                if action_func != None:
+                    action_item = action_func(result[2]);
+                    action_item.performAction(result, xcodeproj);
+                else:
+                    Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please supply an action: "build", "test", "launch", "profile", "analyze", or "archive"'), Logger.colour('reset', True)]);
 
 if __name__ == "__main__":
     main();

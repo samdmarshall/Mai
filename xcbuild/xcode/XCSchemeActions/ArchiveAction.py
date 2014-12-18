@@ -1,10 +1,10 @@
 from __future__ import absolute_import
 
 class ArchiveAction(object):
-    contents = {};
-    children = [];
-    buildConfiguration = '';
-    revealArchiveInOrganizer = '';
+    # contents = {};
+    # children = [];
+    # buildConfiguration = '';
+    # revealArchiveInOrganizer = '';
     
     
     def __init__(self, action_xml):

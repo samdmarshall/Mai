@@ -35,9 +35,9 @@ def XCSchemeName(x):
     return x.name;
 
 class xcscheme(object):
-    path = {};
-    contents = {};
-    name = '';
+    # path = {};
+    # contents = {};
+    # name = '';
     
     def __init__(self, path):
         self.path = Path(path, '');
@@ -46,6 +46,21 @@ class xcscheme(object):
             self.contents = xml.parse(self.path.obj_path);
         except:
             self.contents = {};
+    
+    def actionLookup(self, action_name):
+        action_name = action_name.lower();
+        lookup = {
+            'build': self.buildAction,
+            'test': self.testAction,
+            'launch': self.launchAction,
+            'profile': self.profileAction,
+            'analyze': self.analyzeAction,
+            'archive': self.archiveAction
+        };
+        if action_name in lookup.keys():
+            return lookup[action_name];
+        else:
+            return None;
     
     def isValid(self):
         return self.contents != {};
@@ -58,20 +73,24 @@ class xcscheme(object):
     
     def buildAction(self, container):
         action = BuildAction(self.getAction('BuildAction'));
-        for child in action.children:
-            print xcrun.resolvePathFromLocation(child.target.ReferencedContainer, container.path.base_path, container.path.base_path);
+        return action;
     
     def testAction(self, container):
         action = TestAction(self.getAction('TestAction'));
+        return action;
     
     def launchAction(self, container):
         action = LaunchAction(self.getAction('LaunchAction'));
+        return action;
     
     def profileAction(self, container):
         action = ProfileAction(self.getAction('ProfileAction'));
+        return action;
     
     def analyzeAction(self, container):
         action = AnalyzeAction(self.getAction('AnalyzeAction'));
+        return action;
     
     def archiveAction(self, container):
         action = ArchiveAction(self.getAction('ArchiveAction'));
+        return action;

@@ -6,7 +6,7 @@ import os
 from .PBXResolver import *
 
 class PBXBuildFile(object):
-    fileRef = {};
+    # fileRef = {};
     
     def __init__(self, lookup_func, dictionary, project):
         if 'fileRef' in dictionary.keys():

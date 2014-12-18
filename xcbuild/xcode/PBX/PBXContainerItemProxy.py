@@ -4,10 +4,10 @@ import Foundation
 import os
 
 class PBXContainerItemProxy(object):
-    containerPortal = {};
-    proxyType = 0;
-    remoteGlobalIDString = '';
-    remoteInfo = '';
+    # containerPortal = {};
+    # proxyType = 0;
+    # remoteGlobalIDString = '';
+    # remoteInfo = '';
     
     def __init__(self, lookup_func, dictionary, project):
         self.containerPortal = project.rootObject();

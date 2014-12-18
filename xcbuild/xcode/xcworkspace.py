@@ -11,8 +11,8 @@ from .xcrun import *
 from .xcscheme import *
 
 class xcworkspace(object):
-    path = {};
-    data = {};
+    # path = {};
+    # data = {};
     
     def __init__(self, xcworkspace_path):
         self.path = Path(xcworkspace_path, 'contents.xcworkspacedata');

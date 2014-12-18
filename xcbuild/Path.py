@@ -1,9 +1,9 @@
 import os
 
 class Path(object):
-    base_path = '';
-    obj_path = '';
-    root_path = '';
+    # base_path = '';
+    # obj_path = '';
+    # root_path = '';
     
     def __init__(self, path, root):
         self.obj_path = path;

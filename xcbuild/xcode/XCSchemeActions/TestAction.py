@@ -1,12 +1,12 @@
 from __future__ import absolute_import
 
 class TestAction(object):
-    contents = {};
-    children = [];
-    selectedDebuggerIdentifier = '';
-    selectedLauncherIdentifier = '';
-    shouldUseLaunchSchemeArgsEnv = '';
-    buildConfiguration = '';
+    # contents = {};
+    # children = [];
+    # selectedDebuggerIdentifier = '';
+    # selectedLauncherIdentifier = '';
+    # shouldUseLaunchSchemeArgsEnv = '';
+    # buildConfiguration = '';
     
     
     def __init__(self, action_xml):

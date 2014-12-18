@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
 class AnalyzeAction(object):
-    contents = {};
-    children = [];
-    buildConfiguration = '';
+    # contents = {};
+    # children = [];
+    # buildConfiguration = '';
     
     def __init__(self, action_xml):
         self.contents = action_xml;

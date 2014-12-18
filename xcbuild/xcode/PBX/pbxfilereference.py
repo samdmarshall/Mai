@@ -4,10 +4,10 @@ import Foundation
 import os
 
 class PBXFileReference(object):
-    name = '';
-    path = '';
-    ftype = '';
-    sourceTree = '';
+    # name = '';
+    # path = '';
+    # ftype = '';
+    # sourceTree = '';
     
     def __init__(self, lookup_func, dictionary, project):
         if 'path' in dictionary.keys():

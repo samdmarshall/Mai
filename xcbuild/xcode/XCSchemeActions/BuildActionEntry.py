@@ -3,13 +3,13 @@ from __future__ import absolute_import
 from .BuildableReference import *
 
 class BuildActionEntry(object):
-    contents = {};
-    buildForTesting = '';
-    buildForRunning = '';
-    buildForProfiling = '';
-    buildForArchiving = '';
-    buildForAnalyzing = '';
-    target = {};
+    # contents = {};
+    # buildForTesting = '';
+    # buildForRunning = '';
+    # buildForProfiling = '';
+    # buildForArchiving = '';
+    # buildForAnalyzing = '';
+    # target = {};
     
     def __init__(self, entry_item):
         self.contents = entry_item;

@@ -1,12 +1,12 @@
 from __future__ import absolute_import
 
 class BuildableReference(object):
-    contents = {};
-    BuildableIdentifier = '';
-    BlueprintIdentifier = '';
-    BuildableName = '';
-    BlueprintName = '';
-    ReferencedContainer = '';
+    # contents = {};
+    # BuildableIdentifier = '';
+    # BlueprintIdentifier = '';
+    # BuildableName = '';
+    # BlueprintName = '';
+    # ReferencedContainer = '';
     
     def __init__(self, entry_item):
         self.contents = entry_item;

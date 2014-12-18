@@ -9,10 +9,10 @@ from .xcworkspace import *
 from .xcscheme import *
 
 class xcparse(object):
-    root = {};
-    projects = [];
-    name = '';
-    root_path = '';
+    # root = {};
+    # projects = [];
+    # name = '';
+    # root_path = '';
     
     def __init__(self, path):
         if os.path.exists(path) == True:
@@ -20,13 +20,15 @@ class xcparse(object):
             self.name = os.path.basename(path);
             if self.name.endswith('.xcodeproj') or self.name.endswith('.pbproj'):
                 project_file = xcodeproj(path);
-                self.projects.append(project_file);
+                self.projects = [project_file];
                 self.root = project_file;
             elif self.name.endswith('.xcworkspace'):
                 workspace_file = xcworkspace(path);
                 self.root = workspace_file;
+                projects = [];
                 for project_file in workspace_file.projects():
-                    self.projects.append(project_file);
+                    projects.append(project_file);
+                self.projects = projects;
             else:
                 Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid file!'), Logger.colour('reset', True)]);
         else:

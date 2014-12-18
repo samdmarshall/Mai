@@ -6,14 +6,14 @@ import os
 from .PBXResolver import *
 
 class PBXNativeTarget(object):
-    buildConfigurationList = {};
-    buildPhases = [];
-    buildRules = [];
-    dependencies = [];
-    name = '';
-    productName = '';
-    productReference = {};
-    productType = '';
+    # buildConfigurationList = {};
+    # buildPhases = [];
+    # buildRules = [];
+    # dependencies = [];
+    # name = '';
+    # productName = '';
+    # productReference = {};
+    # productType = '';
     
     def __init__(self, lookup_func, dictionary, project):
         if 'buildConfigurationList' in dictionary.keys():
@@ -21,20 +21,25 @@ class PBXNativeTarget(object):
             if result[0] == True:
                 self.buildConfigurationList = result[1](lookup_func, project.objects()[dictionary['buildConfigurationList']], project);
         if 'buildPhases' in dictionary.keys():
+            phaseList = [];
             for phase in dictionary['buildPhases']:
                 result = lookup_func(project.objects()[phase]);
                 if result[0] == True:
-                    self.buildPhases.append(result[1](lookup_func, project.objects()[phase], project));
+                    phaseList.append(result[1](lookup_func, project.objects()[phase], project));
+            self.buildPhases = phaseList;
         if 'buildRules' in dictionary.keys():
+            ruleList = [];
             for rule in dictionary['buildRules']:
                 result = lookup_func(project.objects()[rule]);
                 if result[0] == True:
-                    print project.objects()[rule]
-                    self.buildRules.append(result[1](lookup_func, project.objects()[rule], project));
+                    ruleList.append(result[1](lookup_func, project.objects()[rule], project));
+            self.buildRules = ruleList;
         if 'dependencies' in dictionary.keys():
+            dependencies = [];
             for dep in dictionary['dependencies']:
                 # this may need to be changed to PBXTargetDependency
-                self.dependencies.append(dep);
+                dependencies.append(dep);
+            self.dependencies = dependencies;
         if 'name' in dictionary.keys():
             self.name = dictionary['name'];
         if 'productName' in dictionary.keys():
