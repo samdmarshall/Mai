@@ -31,4 +31,4 @@ class BuildAction(object):
                 target = target_constructor[1](PBXResolver, project.objects()[child.target.BlueprintIdentifier], project);
                 print target.name;
                 for phase in target.buildPhases:
-                    print phase;
+                    phase.performPhase();

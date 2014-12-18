@@ -19,3 +19,4 @@ from .PBXResourcesBuildPhase import *
 from .PBXRezBuildPhase import *
 from .PBXShellScriptBuildPhase import *
 from .PBXReferenceProxy import *
+from .PBXAppleScriptBuildPhase import *

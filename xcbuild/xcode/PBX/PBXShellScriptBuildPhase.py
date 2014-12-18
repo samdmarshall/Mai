@@ -40,3 +40,6 @@ class PBXShellScriptBuildPhase(object):
             for outputPath in dictionary['outputPaths']:
                 outputPaths.append(outputPath);
             self.outputPaths = outputPaths;
+    
+    def performPhase(self):
+        print 'implement me!';

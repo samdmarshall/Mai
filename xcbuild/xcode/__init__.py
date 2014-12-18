@@ -25,6 +25,9 @@ from .PBX.PBXProject import PBXProject
 from .PBX.PBXResourcesBuildPhase import PBXResourcesBuildPhase
 from .PBX.PBXRezBuildPhase import PBXRezBuildPhase
 from .PBX.PBXShellScriptBuildPhase import PBXShellScriptBuildPhase
+from .PBX.PBXReferenceProxy import PBXReferenceProxy
+from .PBX.PBXAppleScriptBuildPhase import PBXAppleScriptBuildPhase
+from .PBX.PBXLegacyTarget import PBXLegacyTarget
 
 
 

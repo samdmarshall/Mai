@@ -5,9 +5,10 @@ import os
 
 from .PBXResolver import *
 
-class PBXFrameworkBuildPhase(object):
-    # buildActionMask = '';
+class PBXAppleScriptBuildPhase(object):
+    # buildActionMask = 0;
     # files = [];
+    # isSharedContext = 0;
     # runOnlyForDeploymentPostprocessing = 0;
     
     def __init__(self, lookup_func, dictionary, project):
@@ -22,6 +23,8 @@ class PBXFrameworkBuildPhase(object):
             self.files = fileList;
         if 'runOnlyForDeploymentPostprocessing' in dictionary.keys():
             self.runOnlyForDeploymentPostprocessing = dictionary['runOnlyForDeploymentPostprocessing'];
+        if 'isSharedContext' in dictionary.keys():
+            self.isSharedContext = dictionary['isSharedContext'];
     
     def performPhase(self):
         print 'implement me!';

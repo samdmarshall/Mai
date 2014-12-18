@@ -28,3 +28,6 @@ class PBXCopyFilesBuildPhase(object):
             self.files = fileList;
         if 'runOnlyForDeploymentPostprocessing' in dictionary.keys():
             self.runOnlyForDeploymentPostprocessing = dictionary['runOnlyForDeploymentPostprocessing'];
+    
+    def performPhase(self):
+        print 'implement me!';
