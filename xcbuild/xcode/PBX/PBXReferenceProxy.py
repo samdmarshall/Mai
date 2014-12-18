@@ -4,10 +4,10 @@ import Foundation
 import os
 
 class PBXReferenceProxy(object):
-    # containerPortal = {};
-    # proxyType = 0;
-    # remoteGlobalIDString = '';
-    # remoteInfo = '';
+    # fileType = '';
+    # path = '';
+    # sourceTree = '';
+    # remoteRef = {};
     
     def __init__(self, lookup_func, dictionary, project):
         self.containerPortal = project.rootObject();
