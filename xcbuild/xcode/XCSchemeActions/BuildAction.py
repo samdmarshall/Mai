@@ -22,13 +22,20 @@ class BuildAction(object):
             children.append(BuildActionEntry(build_entry));
         self.children = children;
     
-    def performAction(self, container, project_constructor):
+    def performAction(self, container, project_constructor, scheme_config_settings):
         for child in self.children:
             project_path = xcrun.resolvePathFromLocation(child.target.ReferencedContainer, container[2].path.base_path, container[2].path.base_path);
             project = project_constructor(project_path);
-            target_constructor = PBXResolver(project.objects()[child.target.BlueprintIdentifier]);
-            if target_constructor[0] == True:
-                target = target_constructor[1](PBXResolver, project.objects()[child.target.BlueprintIdentifier], project);
-                print target.name;
-                for phase in target.buildPhases:
-                    phase.performPhase();
+            
+            build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+container[1].name+'" ';
+            for item in scheme_config_settings:
+                build_command+=str(item)+' ';
+            result = xcrun.make_subprocess_call(build_command, True);
+            print result[0];
+            
+            # target_constructor = PBXResolver(project.objects()[child.target.BlueprintIdentifier]);
+            # if target_constructor[0] == True:
+            #     target = target_constructor[1](PBXResolver, project.objects()[child.target.BlueprintIdentifier], project);
+            #     print target.name;
+            #     for phase in target.buildPhases:
+            #         phase.performPhase();

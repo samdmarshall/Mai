@@ -20,5 +20,5 @@ class TestAction(object):
         if 'buildConfiguration' in self.contents.keys():
             self.buildConfiguration = self.contents.get('buildConfiguration');
     
-    def performAction(self, container, project_constructor):
+    def performAction(self, container, project_constructor, scheme_config_settings):
         print 'implement me!';

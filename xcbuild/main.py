@@ -48,7 +48,7 @@ def main():
                 action_func = result[1].actionLookup(args.action);
                 if action_func != None:
                     action_item = action_func(result[2]);
-                    action_item.performAction(result, xcodeproj);
+                    action_item.performAction(result, xcodeproj, validate_config_scheme_settings);
                 else:
                     Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please supply an action: "build", "test", "launch", "profile", "analyze", or "archive"'), Logger.colour('reset', True)]);
             else:

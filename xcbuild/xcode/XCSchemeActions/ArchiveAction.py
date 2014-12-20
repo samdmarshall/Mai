@@ -14,5 +14,5 @@ class ArchiveAction(object):
         if 'revealArchiveInOrganizer' in self.contents.keys():
             self.revealArchiveInOrganizer = self.contents.get('revealArchiveInOrganizer');
     
-    def performAction(self, container, project_constructor):
+    def performAction(self, container, project_constructor, scheme_config_settings):
         print 'implement me!';

@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+from subprocess import CalledProcessError
 
 from ..Logger import *
 
