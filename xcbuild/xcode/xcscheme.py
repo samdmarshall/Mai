@@ -53,8 +53,8 @@ class xcscheme(object):
         lookup = {
             'build': self.buildAction,
             'test': self.testAction,
-            'launch': self.launchAction,
-            'profile': self.profileAction,
+            #'launch': self.launchAction,
+            #'profile': self.profileAction,
             'analyze': self.analyzeAction,
             'archive': self.archiveAction
         };
@@ -78,6 +78,7 @@ class xcscheme(object):
     
     def testAction(self, container):
         action = TestAction(self.getAction('TestAction'));
+        action.root = BuildAction(self.getAction('BuildAction'))
         return action;
     
     def launchAction(self, container):
@@ -90,8 +91,10 @@ class xcscheme(object):
     
     def analyzeAction(self, container):
         action = AnalyzeAction(self.getAction('AnalyzeAction'));
+        action.root = BuildAction(self.getAction('BuildAction'))
         return action;
     
     def archiveAction(self, container):
         action = ArchiveAction(self.getAction('ArchiveAction'));
+        action.root = BuildAction(self.getAction('BuildAction'))
         return action;

@@ -44,3 +44,12 @@ class xcrun(object):
             sys.exit();
         developer_path = xcrun_result[0].rstrip('\n');
         return developer_path;
+    
+    @classmethod
+    def perform_xcodebuild(cls, project, scheme_name, type, scheme_config_settings):
+        build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+scheme_name+'" ';
+        for item in scheme_config_settings:
+            build_command+=str(item)+' ';
+        build_command+=' '+type;
+        result = xcrun.make_subprocess_call(build_command, True);
+        print result[0];

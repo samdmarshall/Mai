@@ -16,7 +16,7 @@ def main():
     parser.add_argument('filename', help='path to xcodeproj or xcworkspace');
     parser.add_argument('-l', '--list', help='list schemes', action='store_true');
     parser.add_argument('-c', '--config', help='path to the build config file', action='store');
-    parser.add_argument('-a', '--action', help='action to perform: "build", "test", "launch", "profile", "analyze", or "archive"', action='store');
+    parser.add_argument('-a', '--action', help='action to perform: "build", "test", "analyze", or "archive"', action='store');
     args = parser.parse_args();
     
     xcparser = xcparse(args.filename);
@@ -50,7 +50,7 @@ def main():
                     action_item = action_func(result[2]);
                     action_item.performAction(result, xcodeproj, validate_config_scheme_settings);
                 else:
-                    Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please supply an action: "build", "test", "launch", "profile", "analyze", or "archive"'), Logger.colour('reset', True)]);
+                    Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please supply an action: "build", "test", "analyze", or "archive"'), Logger.colour('reset', True)]);
             else:
                 Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please specify an action with the -a/--action flag'), Logger.colour('reset', True)]);
 

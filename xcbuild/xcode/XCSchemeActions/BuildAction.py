@@ -27,11 +27,7 @@ class BuildAction(object):
             project_path = xcrun.resolvePathFromLocation(child.target.ReferencedContainer, container[2].path.base_path, container[2].path.base_path);
             project = project_constructor(project_path);
             
-            build_command = 'xcodebuild -project "'+project.path.obj_path+'" -scheme "'+container[1].name+'" ';
-            for item in scheme_config_settings:
-                build_command+=str(item)+' ';
-            result = xcrun.make_subprocess_call(build_command, True);
-            print result[0];
+            xcrun.perform_xcodebuild(project, container[1].name, 'build', scheme_config_settings);
             
             # target_constructor = PBXResolver(project.objects()[child.target.BlueprintIdentifier]);
             # if target_constructor[0] == True:
