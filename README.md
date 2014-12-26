@@ -1,10 +1,10 @@
-xcbuild
+Mai
 =======
 
 External Xcode scheme build tool
 --------------------------------
 
-xcbuild is a minimal build tool to make building complex schemes easier. it was created with the intention of
+Mai is a minimal build tool to make building complex schemes easier. it was created with the intention of
  building projects that require nested aggregate targets and schemes that require specific ordering.
  
  
@@ -18,7 +18,7 @@ How To Use
 ----------
 
 
-	usage: xcbuild [-h] [-l] [-c CONFIG] [-a ACTION] filename
+	usage: mai [-h] [-l] [-c CONFIG] [-a ACTION] filename
 
 	Resolve target dependencies
 
@@ -29,4 +29,4 @@ How To Use
 	  -h, --help                    show this help message and exit
 	  -l, --list                    list schemes
 	  -c CONFIG, --config CONFIG    path to the build config file
-	  -a ACTION, --action ACTION    action to perform: "build", "test", "launch", "profile", "analyze", or "archive"
+	  -a ACTION, --action ACTION    action to perform: "build", "test", "analyze", or "archive"
