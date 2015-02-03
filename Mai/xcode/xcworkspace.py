@@ -23,7 +23,11 @@ class xcworkspace(object):
             except:
                 self.data = {};
         else:
-            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid xcworkspace file!'), Logger.colour('reset', True)]);
+            Logger.debuglog([
+                            Logger.colour('red',True),
+                            Logger.string('%s', 'Invalid xcworkspace file!'),
+                            Logger.colour('reset', True)
+                            ]);
     
     def isValid(self):
         return self.data != {};
@@ -65,6 +69,8 @@ class xcworkspace(object):
         # shared schemes
         shared_path = XCSchemeGetSharedPath(self.path.obj_path);
         shared_schemes = XCSchemeParseDirectory(shared_path);
+        for scheme in shared_schemes:
+            scheme.shared = True;
         # user schemes
         user_path = XCSchemeGetUserPath(self.path.obj_path);
         user_schemes = XCSchemeParseDirectory(user_path);

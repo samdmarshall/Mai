@@ -31,11 +31,23 @@ class xcodeproj(object):
                         if result[0] == True:
                             self.rootObject = result[1](PBXResolver, self.objects()[self.contents['rootObject']], self);
                     else:
-                        Logger.debuglog([Logger.colour('red',True), Logger.string('%s', errorMessage), Logger.colour('reset', True)]);
+                        Logger.debuglog([
+                                        Logger.colour('red',True),
+                                        Logger.string('%s', errorMessage),
+                                        Logger.colour('reset', True)
+                                        ]);
                 else:
-                    Logger.debuglog([Logger.colour('red',True), Logger.string('%s', errorMessage), Logger.colour('reset', True)]);
+                    Logger.debuglog([
+                                    Logger.colour('red',True),
+                                    Logger.string('%s', errorMessage),
+                                    Logger.colour('reset', True)
+                                    ]);
             else:
-                Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid xcodeproj file!'), Logger.colour('reset', True)]);
+                Logger.debuglog([
+                                Logger.colour('red',True),
+                                Logger.string('%s', 'Invalid xcodeproj file!'),
+                                Logger.colour('reset', True)
+                                ]);
     
     def isValid(self):
         return self.contents != {};
@@ -67,6 +79,8 @@ class xcodeproj(object):
         # shared schemes
         shared_path = XCSchemeGetSharedPath(self.path.obj_path);
         shared_schemes = XCSchemeParseDirectory(shared_path);
+        for scheme in shared_schemes:
+            scheme.shared = True;
         # user schemes
         user_path = XCSchemeGetUserPath(self.path.obj_path);
         user_schemes = XCSchemeParseDirectory(user_path);

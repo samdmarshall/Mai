@@ -40,6 +40,7 @@ class xcscheme(object):
     # name = '';
     
     def __init__(self, path):
+        self.shared = False;
         self.container = '';
         self.path = Path(path, '');
         self.name = os.path.basename(path).split('.xcscheme')[0];

@@ -20,7 +20,12 @@ class xcrun(object):
         elif path_type == 'container':
             return os.path.join(base_path, item_path);
         else:
-            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid item path name!'), Logger.colour('reset', True)]);
+            Logger.debuglog([
+                            Logger.colour('red',True),
+                            Logger.string('%s', 'Invalid item path name!'),
+                            Logger.colour('reset', True)
+                            ]);
+                            
             return item_path;
     
     @classmethod
@@ -40,7 +45,12 @@ class xcrun(object):
         platform_path = '';
         xcrun_result = xcrun.make_subprocess_call(('xcode-select', '-p'));
         if xcrun_result[1] != 0:
-            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Please run Xcode first!'), Logger.colour('reset', True)]);
+            Logger.debuglog([
+                            Logger.colour('red',True),
+                            Logger.string('%s', 'Please run Xcode first!'),
+                            Logger.colour('reset', True)
+                            ]);
+                            
             sys.exit();
         developer_path = xcrun_result[0].rstrip('\n');
         return developer_path;

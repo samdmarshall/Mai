@@ -32,9 +32,17 @@ class xcparse(object):
                     projects.append(project_file);
                 self.projects = projects;
             else:
-                Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Invalid file!'), Logger.colour('reset', True)]);
+                Logger.debuglog([
+                                Logger.colour('red',True),
+                                Logger.string('%s', 'Invalid file!'),
+                                Logger.colour('reset', True)
+                                ]);
         else:
-            Logger.debuglog([Logger.colour('red',True), Logger.string('%s', 'Could not find file!'), Logger.colour('reset', True)]);
+            Logger.debuglog([
+                            Logger.colour('red',True),
+                            Logger.string('%s', 'Could not find file!'),
+                            Logger.colour('reset', True)
+                            ]);
     
     def schemes(self):
         project_schemes = [];
