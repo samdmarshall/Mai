@@ -1,0 +1,3 @@
+[submodule "Mai/xcode"]
+	path = Mai/xcode
+	url = git@github.com:samdmarshall/xcparse.git
