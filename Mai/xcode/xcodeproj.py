@@ -27,10 +27,10 @@ class xcodeproj(object):
                     plistContents, plistFormat, errorMessage = Foundation.NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(plistNSData, Foundation.NSPropertyListMutableContainers, None, None);
                     if errorMessage == None:
                         self.contents = plistContents;
-                        result = PBXResolver(self.objects()[self.contents['rootObject']])
-                        print result[1];
+                        self.identifier  = self.contents['rootObject'];
+                        result = PBXResolver(self.objects()[self.identifier])
                         if result[0] == True:
-                            self.rootObject = result[1](PBXResolver, self.objects()[self.contents['rootObject']], self);
+                            self.rootObject = result[1](PBXResolver, self.objects()[self.identifier], self);
                     else:
                         Logger.debuglog([
                                         Logger.colour('red',True),
@@ -50,6 +50,15 @@ class xcodeproj(object):
                                 Logger.colour('reset', True)
                                 ]);
     
+    def __attrs(self):
+        return (self.identifier, self.path);
+
+    def __eq__(self, other):
+        return isinstance(other, xcodeproj) and self.identifier == other.identifier and self.path.root_path == other.path.root_path;
+
+    def __hash__(self):
+        return hash(self.__attrs());
+    
     def isValid(self):
         return self.contents != {};
     
@@ -62,16 +71,17 @@ class xcodeproj(object):
             project = xcodeproj(path);
             subprojects.append(project);
             subprojects.extend(project.projects());
-        return subprojects;
+        return list(set(subprojects));
     
     def subprojects(self):
         subproject_paths = [];
-        root_obj = self.objects()[self.contents['rootObject']];
+        root_obj = self.objects()[self.identifier];
         if 'projectReferences' in root_obj.keys():
             for project_dict in root_obj['projectReferences']:
-                result = PBXResolver(self.objects()[project_dict['ProjectRef']]);
+                project_ref = project_dict['ProjectRef'];
+                result = PBXResolver(self.objects()[project_ref]);
                 if result[0] == True:
-                    file_ref = result[1](PBXResolver, self.objects()[project_dict['ProjectRef']], self);
+                    file_ref = result[1](PBXResolver, self.objects()[project_ref], self);
                     subproject_path = os.path.join(self.path.base_path, file_ref.path);
                     if os.path.exists(subproject_path) == True:
                         subproject_paths.append(subproject_path);
