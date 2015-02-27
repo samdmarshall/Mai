@@ -28,6 +28,7 @@ class xcodeproj(object):
                     if errorMessage == None:
                         self.contents = plistContents;
                         result = PBXResolver(self.objects()[self.contents['rootObject']])
+                        print result[1];
                         if result[0] == True:
                             self.rootObject = result[1](PBXResolver, self.objects()[self.contents['rootObject']], self);
                     else:
@@ -55,8 +56,16 @@ class xcodeproj(object):
     def objects(self):
         return self.contents['objects'];
     
-    def subprojects(self):
+    def projects(self):
         subprojects = [];
+        for path in self.subprojects():
+            project = xcodeproj(path);
+            subprojects.append(project);
+            subprojects.extend(project.projects());
+        return subprojects;
+    
+    def subprojects(self):
+        subproject_paths = [];
         root_obj = self.objects()[self.contents['rootObject']];
         if 'projectReferences' in root_obj.keys():
             for project_dict in root_obj['projectReferences']:
@@ -65,8 +74,8 @@ class xcodeproj(object):
                     file_ref = result[1](PBXResolver, self.objects()[project_dict['ProjectRef']], self);
                     subproject_path = os.path.join(self.path.base_path, file_ref.path);
                     if os.path.exists(subproject_path) == True:
-                        subprojects.append(xcodeproj(subproject_path));
-        return subprojects;
+                        subproject_paths.append(subproject_path);
+        return subproject_paths;
     
     def targets(self):
         if self.rootObject != {}:

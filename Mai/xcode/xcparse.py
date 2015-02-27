@@ -16,16 +16,16 @@ class xcparse(object):
     
     def __init__(self, path):
         if os.path.exists(path) == True:
-            self.root_path = path;
+            self.root_path = os.path.abspath(path);
             self.name = os.path.basename(path);
             if self.name.endswith('.xcodeproj') or self.name.endswith('.pbproj'):
-                project_file = xcodeproj(path);
+                project_file = xcodeproj(self.root_path);
                 self.projects = [];
-                for project in project_file.subprojects():
+                for project in project_file.projects():
                     self.projects.append(project);
                 self.root = project_file;
             elif self.name.endswith('.xcworkspace'):
-                workspace_file = xcworkspace(path);
+                workspace_file = xcworkspace(self.root_path);
                 self.root = workspace_file;
                 projects = [];
                 for project_file in workspace_file.projects():

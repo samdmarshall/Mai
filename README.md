@@ -4,10 +4,14 @@ Mai
 External Xcode scheme build tool
 --------------------------------
 
-Mai is a minimal build tool to make building complex schemes easier. it was created with the intention of
- building projects that require nested aggregate targets and schemes that require specific ordering.
- 
- 
+Mai is a wrapper around `xcodebuild` that makes it easier to create specialized builds that depend on ordering of schemes. Doing this using Xcode alone is quite challenging, and displays evidence undefined behavior with dependency resolution. Mai solves this problem by parsing Xcode workspace and project files to find any schemes (both shared and user) and allows you to build them sequentially. In addition, Mai can also over-ride existing build settings for specific schemes, much like having an additional xcconfig file.
+
+
+Configuration Files
+-------------------
+
+
+
 Install
 -------
 
