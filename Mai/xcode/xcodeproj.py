@@ -71,7 +71,7 @@ class xcodeproj(object):
             project = xcodeproj(path);
             subprojects.append(project);
             subprojects.extend(project.projects());
-        return list(set(subprojects));
+        return set(subprojects);
     
     def subprojects(self):
         subproject_paths = [];

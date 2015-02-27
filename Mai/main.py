@@ -55,7 +55,9 @@ def main():
                             Logger.string('%6s', shared_status),
                             Logger.colour('reset', True),
                             Logger.string('%s', ') '),
-                            Logger.string('# %s ', os.path.basename(scheme.container.obj_path)),
+                            Logger.string('# %s (', os.path.basename(scheme.container.obj_path)),
+                            Logger.string('%s', os.path.relpath(scheme.container.obj_path, start=os.path.dirname(xcparser.root_path))),
+                            Logger.string('%s', ')'),
                             Logger.colour('reset', True)
                             ]);
             
