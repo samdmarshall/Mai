@@ -3,7 +3,6 @@ import os
 import sys
 import argparse
 
-from .Logger import *
 from .Config import *
 from .xcode import xcparse
 from .xcode import xcodeproj
@@ -22,11 +21,7 @@ def main():
     xcparser = xcparse(args.filename);
     
     if args.list == True:
-        Logger.debuglog([
-                        Logger.colour('black',True),
-                        Logger.string('%s', 'Schemes'),
-                        Logger.colour('reset', True)
-                        ]);
+        print 'Schemes';
                         
         scheme_list = xcparser.schemes();
         high_count = 0;
@@ -35,31 +30,13 @@ def main():
                 high_count = len(scheme.name);
         name_formatter = '%'+str(high_count)+'s';
         
-        Logger.debuglog([
-                        Logger.colour('blue',True),
-                        Logger.string(name_formatter, '='*(high_count+12+1)),
-                        Logger.colour('reset', True)
-                        ]);
+        print '%*s' % (high_count, '='*(high_count+12+1));
         
         for scheme in scheme_list:
-            shared_colour = 'black';
             shared_status = 'user ';
             if scheme.shared == True:
-                shared_colour = 'green';
                 shared_status = 'shared';
-            Logger.debuglog([
-                            Logger.colour('black', True), 
-                            Logger.string('['+name_formatter+']', scheme.name),
-                            Logger.string('%s', ' ('),
-                            Logger.colour(shared_colour, True),
-                            Logger.string('%6s', shared_status),
-                            Logger.colour('reset', True),
-                            Logger.string('%s', ') '),
-                            Logger.string('# %s (', os.path.basename(scheme.container.obj_path)),
-                            Logger.string('%s', os.path.relpath(scheme.container.obj_path, start=os.path.dirname(xcparser.root_path))),
-                            Logger.string('%s', ')'),
-                            Logger.colour('reset', True)
-                            ]);
+            print '[%*s] (%6s) # %s (%s)' % (high_count, scheme.name, shared_status, os.path.basename(scheme.container.obj_path), os.path.relpath(scheme.container.obj_path, start=os.path.dirname(xcparser.root_path)));
             
         sys.exit();
     
@@ -68,18 +45,11 @@ def main():
         
         validate_config_schemes = config_file.validateSections(xcparser.schemeNameSet());
         if validate_config_schemes[0] == False:
-            Logger.debuglog([
-                            Logger.colour('black',True),
-                            Logger.string('%s', 'Could not find Schemes with names: '),
-                            Logger.colour('reset', True)
-                            ]);
-                            
+            print 'Could not find Schemes with names: ';
+            
             for invalid_scheme in list(validate_config_schemes[1]):
-                Logger.debuglog([
-                                Logger.colour('red',True),
-                                Logger.string('%s', str(invalid_scheme)),
-                                Logger.colour('reset', True)
-                                ]);
+                print str(invalid_scheme);
+            
             sys.exit();
         
         for scheme in config_file.sections():
@@ -94,17 +64,9 @@ def main():
                     action_item = action_func(result[2]);
                     action_item.performAction(result, xcodeproj, validate_config_scheme_settings);
                 else:
-                    Logger.debuglog([
-                                    Logger.colour('red',True),
-                                    Logger.string('%s', 'Please supply an action: "build", "test", "analyze", or "archive"'),
-                                    Logger.colour('reset', True)
-                                    ]);
+                    print 'Please supply an action: "build", "test", "analyze", or "archive"';
             else:
-                Logger.debuglog([
-                                Logger.colour('red',True),
-                                Logger.string('%s', 'Please specify an action with the -a/--action flag'),
-                                Logger.colour('reset', True)
-                                ]);
+                print 'Please specify an action with the -a/--action flag';
 
 if __name__ == "__main__":
     main();
