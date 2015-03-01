@@ -43,7 +43,8 @@ def main():
     if args.config != None and os.path.exists(args.config) == True:
         config_file = Config(args.config);
         
-        validate_config_schemes = config_file.validateSections(xcparser.schemeNameSet());
+        all_schemes = set(map(lambda scheme: scheme.name, xcparser.schemes()));
+        validate_config_schemes = config_file.validateSections(all_schemes);
         if validate_config_schemes[0] == False:
             print 'Could not find Schemes with names: ';
             
@@ -57,7 +58,7 @@ def main():
             
             validate_config_scheme_settings = config_file.validateSetting(scheme, config_scheme_settings);
             
-            result = xcparser.containerForSchemeWithName(scheme);
+            result = xcparser.findSchemeWithName(scheme)[0];
             if result[0] == True and args.action != None:
                 action_func = result[1].actionLookup(args.action);
                 if action_func != None:
