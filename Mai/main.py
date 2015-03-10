@@ -5,6 +5,7 @@ import argparse
 
 from .Config import *
 from .xcode import xcparse
+from .xcode import xcbuildsystem
 from .xcode import xcodeproj
 from .xcode import xcscheme
 from .xcode import xcrun
@@ -19,6 +20,8 @@ def main():
     args = parser.parse_args();
     
     xcparser = xcparse(args.filename);
+    
+    build_system = xcbuildsystem();
     
     if args.list == True:
         print 'Schemes';
@@ -63,7 +66,7 @@ def main():
                 action_func = result[1].actionLookup(args.action);
                 if action_func != None:
                     action_item = action_func(result[2]);
-                    action_item.performAction(result, xcodeproj, validate_config_scheme_settings);
+                    action_item.performAction(build_system, result, xcodeproj, validate_config_scheme_settings);
                 else:
                     print 'Please supply an action: "build", "test", "analyze", or "archive"';
             else:
