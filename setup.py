@@ -9,7 +9,7 @@ setup(
     author_email='me@samdmarshall.com',
     license='BSD 3-Clause',
     package_data = {'mai/xcode': ['defaults.xcconfig']},
-    packages=['mai', 'mai/xcode', 'mai/xcode/PBX', 'mai/xcode/XCSchemeActions'],
+    packages=['mai', 'mai/xcode', 'mai/xcode/PBX', 'mai/xcode/XCSchemeActions', 'mai/xcode/BuildSystem', 'mai/xcode/BuildSystem/XCSpec', 'mai/xcode/BuildSystem/LangSpec'],
     entry_points = {
         'console_scripts': ['mai = mai:main'],
     },
