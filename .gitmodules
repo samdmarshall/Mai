@@ -1,3 +1,0 @@
-[submodule "xcparse"]
-	path = xcparse
-	url = git@github.com:samdmarshall/xcparse.git

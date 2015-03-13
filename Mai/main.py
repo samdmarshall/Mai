@@ -3,11 +3,11 @@ import os
 import sys
 import argparse
 from .Config import *
-from xcparse.xcparse import xcparse
-from xcparse.xcparse.Xcode.BuildSystem import xcbuildsystem
-from xcparse.xcparse.Xcode import xcodeproj
-from xcparse.xcparse.Xcode import xcscheme
-from xcparse.xcparse.Helpers import xcrun_helper
+from xcparse import xcparse
+from xcparse.Xcode.BuildSystem import xcbuildsystem
+from xcparse.Xcode import xcodeproj
+from xcparse.Xcode import xcscheme
+from xcparse.Helpers import xcrun_helper
 
 # Main
 def main():

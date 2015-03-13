@@ -10,10 +10,12 @@ setup(
     license='BSD 3-Clause',
     packages=[
         'mai',
-        'xcparse'
+    ],
+    dependency_links=[
+        'https://github.com/samdmarshall/xcparse/archive/0.1.tar.gz#egg=xcparse-0.1',
     ],
     install_requires=[
-        'xcparse',
+        'xcparse==0.1'
     ],
     entry_points = {
         'console_scripts': ['mai = mai:main'],
