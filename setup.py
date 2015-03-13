@@ -18,7 +18,8 @@ setup(
         'mai/xcode/xcparse/Xcode/XCSchemeActions', 
         'mai/xcode/xcparse/Xcode/BuildSystem', 
         'mai/xcode/xcparse/Xcode/BuildSystem/XCSpec', 
-        'mai/xcode/xcparse/Xcode/BuildSystem/LangSpec'
+        'mai/xcode/xcparse/Xcode/BuildSystem/LangSpec',
+        'mai/xcode/xcparse/Xcode/BuildSystem/Environment'
     ],
     entry_points = {
         'console_scripts': ['mai = mai:main'],
