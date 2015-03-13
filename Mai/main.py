@@ -4,11 +4,11 @@ import sys
 import argparse
 
 from .Config import *
-from .xcode import xcparse
-from .xcode import xcbuildsystem
-from .xcode import xcodeproj
-from .xcode import xcscheme
-from .xcode import xcrun
+from .xcode.xcparse import xcparse
+from .xcode.xcparse.Xcode.BuildSystem import xcbuildsystem
+from .xcode.xcparse.Xcode import xcodeproj
+from .xcode.xcparse.Xcode import xcscheme
+from .xcode.xcparse.Helpers import xcrun_helper
 
 # Main
 def main():
