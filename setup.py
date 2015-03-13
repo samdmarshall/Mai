@@ -8,18 +8,12 @@ setup(
     author='Sam Marshall',
     author_email='me@samdmarshall.com',
     license='BSD 3-Clause',
-    package_data = {'mai/xcode/xcparse': ['defaults.xcconfig']},
     packages=[
         'mai',
-        'mai/xcode/xcparse', 
-        'mai/xcode/xcparse/Helpers', 
-        'mai/xcode/xcparse/Xcode', 
-        'mai/xcode/xcparse/Xcode/PBX', 
-        'mai/xcode/xcparse/Xcode/XCSchemeActions', 
-        'mai/xcode/xcparse/Xcode/BuildSystem', 
-        'mai/xcode/xcparse/Xcode/BuildSystem/XCSpec', 
-        'mai/xcode/xcparse/Xcode/BuildSystem/LangSpec',
-        'mai/xcode/xcparse/Xcode/BuildSystem/Environment'
+        'xcparse'
+    ],
+    install_requires=[
+        'xcparse',
     ],
     entry_points = {
         'console_scripts': ['mai = mai:main'],

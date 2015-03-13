@@ -2,13 +2,12 @@ from __future__ import absolute_import
 import os
 import sys
 import argparse
-
 from .Config import *
-from .xcode.xcparse import xcparse
-from .xcode.xcparse.Xcode.BuildSystem import xcbuildsystem
-from .xcode.xcparse.Xcode import xcodeproj
-from .xcode.xcparse.Xcode import xcscheme
-from .xcode.xcparse.Helpers import xcrun_helper
+from xcparse.xcparse import xcparse
+from xcparse.xcparse.Xcode.BuildSystem import xcbuildsystem
+from xcparse.xcparse.Xcode import xcodeproj
+from xcparse.xcparse.Xcode import xcscheme
+from xcparse.xcparse.Helpers import xcrun_helper
 
 # Main
 def main():
